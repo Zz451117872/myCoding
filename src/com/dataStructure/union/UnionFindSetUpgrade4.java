@@ -26,10 +26,10 @@ public class UnionFindSetUpgrade4 implements UnionFindSet{
 		int qRoot = getRoot(q);
 		if(size[pRoot] > size[qRoot])
 		{
-			arr[qRoot] = arr[pRoot];
+			arr[qRoot] = pRoot;
 			size[pRoot] += size[qRoot];
 		}else{
-			arr[pRoot] = arr[qRoot];
+			arr[pRoot] = qRoot;
 			size[qRoot] += size[pRoot];
 		}
 		return true;
@@ -52,6 +52,7 @@ public class UnionFindSetUpgrade4 implements UnionFindSet{
 		int root = p;
 		while(arr[root] != root)
 		{
+			arr[root] = arr[arr[root]];//路径压缩
 			root = arr[root];
 		}
 		return root;

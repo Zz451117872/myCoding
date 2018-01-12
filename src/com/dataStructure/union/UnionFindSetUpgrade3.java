@@ -27,11 +27,11 @@ public class UnionFindSetUpgrade3 implements UnionFindSet{
 		int qRoot = getRoot(q);
 		if(rank[pRoot] > rank[qRoot])
 		{
-			arr[qRoot] = arr[pRoot];
+			arr[qRoot] = pRoot;
 		}else if(rank[pRoot] < rank[qRoot]){
-			arr[pRoot] = arr[qRoot];
+			arr[pRoot] = qRoot;
 		}else{
-			arr[qRoot] = arr[pRoot];
+			arr[qRoot] = pRoot;
 			rank[pRoot] += 1;
 		}
 		return true;

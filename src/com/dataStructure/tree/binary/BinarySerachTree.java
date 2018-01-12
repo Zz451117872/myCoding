@@ -1,20 +1,23 @@
 package com.dataStructure.tree.binary;
 
-public class BinarySerachTree<T extends Comparable<T>> {
-	public Node<T> root = null;	
+import java.io.Serializable;
+
+public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
+	
+	public BinarySerachTreeNode<T> root = null;	
 	
 	//中序遍历
-	public void inorder(Node<T> node)
+	public void inorder(BinarySerachTreeNode BinarySerachTreeNode)
 	{
-		if(node != null)
+		if(BinarySerachTreeNode != null)
 		{
-			inorder(node.left);
-			System.out.print(node.key+"  ");
-			inorder(node.right);
+			inorder(BinarySerachTreeNode.left);
+			System.out.print(BinarySerachTreeNode.key+"  ");
+			inorder(BinarySerachTreeNode.right);
 		}
 	}
 	//查看结点
-	public Node<T> search(Node<T> head,T key)
+	public BinarySerachTreeNode<T> search(BinarySerachTreeNode<T> head,T key)
 	{
 		if(key == null) return null;
 		if(head == null || head.key.compareTo(key) == 0)
@@ -29,116 +32,115 @@ public class BinarySerachTree<T extends Comparable<T>> {
 		}
 	}
 	//最小值
-	public Node<T> minimum(Node<T> head)
+	public BinarySerachTreeNode<T> minimum(BinarySerachTreeNode<T> head)
 	{
-		if(head == null || head.left == null ) 
-			return head;
-		Node<T> node = head;
-		while(node.left != null)
+		if(head == null || head.left == null ) return head;
+		BinarySerachTreeNode<T> BinarySerachTreeNode = head;
+		while(BinarySerachTreeNode.left != null)
 		{
-			node = node.left;
+			BinarySerachTreeNode = BinarySerachTreeNode.left;
 		}
-		return node;
+		return BinarySerachTreeNode;
 	}
 	//最大值
-	public Node<T> maximum(Node<T> head)
+	public BinarySerachTreeNode<T> maximum(BinarySerachTreeNode<T> head)
 	{
 		if(head == null || head.right == null) return head;
-		Node<T> node = head;
-		while(node.right != null)
+		BinarySerachTreeNode<T> BinarySerachTreeNode = head;
+		while(BinarySerachTreeNode.right != null)
 		{
-			node = node.right;
+			BinarySerachTreeNode = BinarySerachTreeNode.right;
 		}
-		return node;
+		return BinarySerachTreeNode;
 	}
 	//中序遍历的后继
-	public Node<T> successor(Node<T> head)
+	public BinarySerachTreeNode<T> successor(BinarySerachTreeNode<T> head)
 	{
 		if(head == null) return null;
-		
-		Node<T> node = head;
-		if(this.maximum(this.root) == node) return null;
-				
-		if(node.right != null)
+		BinarySerachTreeNode<T> BinarySerachTreeNode = head;
+		if(BinarySerachTreeNode.right != null)
 		{
-			return minimum(node.right);
+			return minimum(BinarySerachTreeNode.right);
 		}else{
-			Node<T> parent = node.parent;
-			while(parent.right == node)
+			if(this.maximum(this.root) == BinarySerachTreeNode) return null;
+			BinarySerachTreeNode<T> parent = BinarySerachTreeNode.parent;
+			while(parent.right == BinarySerachTreeNode)
 			{
-				node = parent;
+				BinarySerachTreeNode = parent;
 				parent = parent.parent;
 			}
 			return parent;
 		}		
 	}
 	//中序遍历的前继
-	public Node<T> predecessor(Node<T> head)
+	public BinarySerachTreeNode<T> predecessor(BinarySerachTreeNode<T> head)
 	{
 		if(head == null ) return null;
-		
-		Node<T> node = head;
-		if(this.minimum(this.root) == node) return null;
-		
-		if(node.left != null)
+		BinarySerachTreeNode<T> BinarySerachTreeNode = head;
+		if(BinarySerachTreeNode.left != null)
 		{
-			return maximum(node.left);
-		}else{			
-			Node<T> parent = node.parent;
-			while(parent.left == node)
+			return maximum(BinarySerachTreeNode.left);
+		}else{
+			if(this.minimum(this.root) == BinarySerachTreeNode) return null;
+			BinarySerachTreeNode<T> parent = BinarySerachTreeNode.parent;
+			while(parent.left == BinarySerachTreeNode)
 			{
 				parent = parent.parent;
-				node = parent;
+				BinarySerachTreeNode = parent;
 			}
 			return parent;
 		}
 	}
-	//插入结点
-	public boolean insert(BinarySerachTree<T> tree,Node<T> node)
+	
+	public void add(BinarySerachTree<T> tree, T data)
 	{
-		if(node == null) return false;		
-		if(this.search(tree.root, node.key) != null) return false;
-		
-		Node<T> insertPoint = null;
-		Node<T> head = tree.root;
-		while(head != null)
+		BinarySerachTreeNode<T> BinarySerachTreeNode = new BinarySerachTreeNode<T>(data);
+		insert(tree,BinarySerachTreeNode);
+	}
+	//插入结点
+	public void insert(BinarySerachTree<T> tree,BinarySerachTreeNode<T> BinarySerachTreeNode)
+	{
+		if(BinarySerachTreeNode == null) return;
+		if(this.search(tree.root, BinarySerachTreeNode.key) != null) return;
+		BinarySerachTreeNode<T> y = null;
+		BinarySerachTreeNode<T> x = tree.root;
+		while(x != null)
 		{
-			insertPoint = head;
-			if(node.key.compareTo(head.key) > 0)
+			y = x;
+			if(BinarySerachTreeNode.key.compareTo(x.key) > 0)
 			{
-				head = head.right;
+				x = x.right;
 			}else{
-				head = head.left;
+				x = x.left;
 			}
 		}
-		if(insertPoint == null)  //树为空
+		if(y == null)  
 		{
-			tree.root = node;
-			node.parent = null;
-			return true;
+			tree.root = BinarySerachTreeNode;
+			BinarySerachTreeNode.parent = null;
+			return;
 		}
-		if(node.key.compareTo(insertPoint.key) > 0)
+		if(BinarySerachTreeNode.key.compareTo(y.key) > 0)
 		{
-			insertPoint.right = node;
+			y.right = BinarySerachTreeNode;
 		}else{
-			insertPoint.left = node;
+			y.left = BinarySerachTreeNode;
 		}
-		node.parent = insertPoint;
-		return true;
+		BinarySerachTreeNode.parent = y;
+		return;
 	}
 	//迁移结点
-	public boolean transplant(BinarySerachTree<T> tree,Node<T> dest,Node<T> source)
-	{	//source是可以为空的，为空时等于就是删除掉目标节点
-		if(dest == null) return false;
+	public boolean transplant(BinarySerachTree<T> tree,BinarySerachTreeNode<T> dest,BinarySerachTreeNode<T> source)
+	{
+		if(dest == null || source == null) return false;
 		if(dest.parent == null)
 		{
 			tree.root = source;
-			if(source != null) source.parent = null;
+			source.parent = null;
 			return true;
 		}		
-		if(this.search(tree.root,dest.key)== null)
-			return false;
-		
+		BinarySerachTreeNode<T> BinarySerachTreeNode = this.search(tree.root,dest.key);
+		if(BinarySerachTreeNode == null) return false;
 		if(dest.parent.right == dest)
 		{
 			dest.parent.right = source;
@@ -150,67 +152,28 @@ public class BinarySerachTree<T extends Comparable<T>> {
 		return true;
 	}
 	//删除结点
-	public boolean delete(BinarySerachTree<T> tree,Node<T> node)
+	public boolean delete(BinarySerachTree<T> tree,BinarySerachTreeNode<T> BinarySerachTreeNode)
 	{
-		if( node == null) return false;
-		//如果这个结点不存在于这颗树中，返回
-		if(this.search(tree.root, node.key) == null) return false;
-		
-		if(node.left == null && node.right == null)
-		{	//如果删除的节点是 叶节点
-			if(node == node.parent.left)
-			{
-				node.parent.left = null;
-			}else{
-				node.parent.right = null;
-			}
-			node.parent = null;
-			return true;
-		}else if(node.left == null && node.right != null)//
-		{	//删除的节点 左子树为空
-			return this.transplant(tree, node, node.right);
-		}else if(node.right == null && node.left != null)
-		{	//删除的节点 右子树为空
-			return this.transplant(tree, node,node.left);
+		if( BinarySerachTreeNode == null) return false;
+		if(this.search(tree.root, BinarySerachTreeNode.key) == null) return false;
+		if(BinarySerachTreeNode.left == null)
+		{
+			return this.transplant(tree, BinarySerachTreeNode, BinarySerachTreeNode.right);
+		}else if(BinarySerachTreeNode.right == null)
+		{
+			return this.transplant(tree, BinarySerachTreeNode,BinarySerachTreeNode.left);
 		}else{
-			//删除的节点 左右子树不为空
-			Node<T> right_min = this.minimum(node.right);
-			if(right_min.parent != node)
-			{	//如果后备节点 的父节点 不是 要删除的节点，需要设置其右子树
+			BinarySerachTreeNode<T> right_min = this.minimum(BinarySerachTreeNode.right);
+			if(right_min.parent != BinarySerachTreeNode)
+			{
 				transplant(tree, right_min, right_min.right);
-				right_min.right = node.right;
+				right_min.right = BinarySerachTreeNode.right;
 				right_min.right.parent = right_min;
 			}
-			transplant(tree, node, right_min);
-			right_min.left = node.left;
+			transplant(tree, BinarySerachTreeNode, right_min);
+			right_min.left = BinarySerachTreeNode.left;
 			right_min.left.parent = right_min;
 			return true;
 		}
 	}
-}
-
-class Node<T extends Comparable<T>>{
-	public T key;
-	public Node<T> left;
-	public Node<T> right;
-	public Node<T> parent;
-	
-	public Node(){}
-	
-	public Node(T key)
-	{
-		this.key = key;
-		this.left = null;
-		this.right = null;
-		this.parent = null;
-	}
-	
-	public Node(Node parent,T key)
-	{
-		this.parent = parent;
-		this.key = key;
-		this.left = null;
-		this.right = null;
-	}
-	
 }
