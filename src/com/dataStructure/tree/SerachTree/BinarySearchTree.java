@@ -1,19 +1,11 @@
 package com.dataStructure.tree.SerachTree;
 
-import java.util.Queue;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class BinarySearchTree {
-	private Node treeRoot;
-	
-	public BinarySearchTree()
-	{
-		treeRoot = null;
-	}
-	
-	
+	private Node treeRoot = null;
 	
 	//添加节点
 	public void addData(int data)

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -30,13 +31,13 @@ public class Trees {
 	private static void inorder(BinarySerachTreeNode<Integer> root, int start, int end, List<Integer> ranges) 
 	{
 		if(root == null) return;
-		if(root.key > end)
+		if(root.key > end)//中序区间搜索，若根结点值大于右边界则递归搜索左子树
 		{
 			inorder(root.left,start,end,ranges);
-		}else if(root.key < start)
+		}else if(root.key < start)//中序区间搜索，若根结点值小于左边界则递归搜索右子树
 		{
 			inorder(root.right,start,end,ranges);
-		}else{
+		}else{			//若根结点值界于左右边界，则获取左子树大于左边界+当前根结点值+右子树小于右边界 的集合
 			inorderGt(root.left,start,ranges);
 			ranges.add(root.key);
 			inorderLt(root.right,end,ranges);
@@ -47,9 +48,9 @@ public class Trees {
 	private static void inorderLt(BinarySerachTreeNode<Integer> root, int end, List<Integer> ranges) 
 	{
 		if(root == null ) return;
-		if(root.key <= end)
+		if(root.key <= end)//若根节点值 小于等于 边界值，则左子树 与节点符合条件，再递归右子树；
 		{
-			inorderInsert(root.left, ranges);
+			inorderInsert(root.left, ranges);//将整个树插入集合
 			ranges.add(root.key);
 			inorderLt(root.right,end,ranges);
 		}else{
@@ -140,6 +141,24 @@ public class Trees {
 	 * 先序遍历 主要作用是 得到根节点的值
 	 * 中序遍历 主要作用是 定位根节点，分割左右子树
 	 */
+	public static void handler(int[] preorder,int[] inorder,int[] postorder,int start,int end)
+	{
+		if(end < start) return;
+		int root = preorder[0];//获取根节点的值
+		int rootIndex =  getIndex(inorder,root);//获取根节点的索引值
+		postorder[end] = root;
+		
+		if( rootIndex > 0){	//根节点的索引值 如果大于0，表示有左子树，则递归调用
+			handler(Arrays.copyOfRange(preorder, 1, 1+rootIndex),
+				Arrays.copyOfRange(inorder, 0, rootIndex),
+				postorder,0,rootIndex);
+			}
+		if(rootIndex < inorder.length -1 ){	//根节点的索引值 如果小于最后一个节点的索引值，表示 有右子树，则递归调用
+			handler(Arrays.copyOfRange(preorder, rootIndex+1, preorder.length),
+				Arrays.copyOfRange(inorder, rootIndex+1, inorder.length),
+				postorder,rootIndex+1,end-1);
+			}		
+	}
 	
 	public static int[] preorder = {21,12,10,9,4,24,44,33,25,29,53,76};
 	public static int[] inorder = {4,9,10,12,21,24,25,29,33,44,53,76};
