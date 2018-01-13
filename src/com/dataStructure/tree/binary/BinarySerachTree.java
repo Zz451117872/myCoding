@@ -7,15 +7,26 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 	public BinarySerachTreeNode<T> root = null;	
 	
 	//中序遍历
-	public void inorder(BinarySerachTreeNode<T> BinarySerachTreeNode)
+	public void inorder()
+	{
+		if(this.root != null){
+			doInorder(this.root);
+			System.out.println("");
+		}else{
+			System.out.println("empty!!!");
+		}
+	}
+	
+	private void doInorder(BinarySerachTreeNode<T> BinarySerachTreeNode)
 	{
 		if(BinarySerachTreeNode != null)
 		{
-			inorder(BinarySerachTreeNode.left);
+			doInorder(BinarySerachTreeNode.left);
 			System.out.print(BinarySerachTreeNode.key+" ");
-			inorder(BinarySerachTreeNode.right);
+			doInorder(BinarySerachTreeNode.right);
 		}
 	}
+	
 	/*
 	 * 根据key值 查找节点,需要使用到递归的方法，需要传入节点参数，以表示从哪个节点开始查
 	 */
@@ -146,21 +157,27 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 		return;
 	}
 	/*
-	 * 迁移结点
+	 * 迁移结点：用一个指定结点去覆盖另一个结点
+	 * dest: 被覆盖的结点
+	 * source: 指定结点
 	 */
-	public boolean transplant(BinarySerachTree<T> tree,BinarySerachTreeNode<T> dest,BinarySerachTreeNode<T> source)
+	public boolean transplant(BinarySerachTreeNode<T> dest,BinarySerachTreeNode<T> source)
 	{
-		if(dest == null || source == null) return false;
-		if(dest.parent == null)
-		{
-			tree.root = source;
-			source.parent = null;
-			return true;
-		}		
-		BinarySerachTreeNode<T> BinarySerachTreeNode = this.search(tree.root,dest.key);
+		if(dest == null) return false;
+											//判断被覆盖结点是否在树中
+		BinarySerachTreeNode<T> BinarySerachTreeNode = this.search(this.root,dest.key);
 		if(BinarySerachTreeNode == null) return false;
-		if(dest.parent.right == dest)
+		if(dest.parent == null)	//如果被覆盖结点是根结点，则变更根结点
 		{
+			this.root = source;
+			if(source != null){
+				source.parent = null;
+			}
+			return true;
+		}														
+						//如果被覆盖结点是其父结点的右结点，则更新其父结点的右结点为 指定结点
+		if(dest.parent.right == dest)
+		{					
 			dest.parent.right = source;
 		}else if(dest.parent.left == dest)
 		{
@@ -172,26 +189,26 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 	/*
 	 * 删除节点
 	 */
-	public boolean delete(BinarySerachTree<T> tree,T key)
+	public boolean delete(T key)
 	{
-		if( key == null) return false;
-		BinarySerachTreeNode<T> currentNode = this.search(tree.root, key);
+		if( key == null) return false;				//判断待删除的结点是否在树中
+		BinarySerachTreeNode<T> currentNode = this.search(this.root, key);
 		if(currentNode == null) return false;
 		if(currentNode.left == null)
-		{
-			return this.transplant(tree, currentNode, currentNode.right);
+		{						//如果待删除的左节点为空，则用其右节点迁移 其待删除结点
+			return this.transplant(currentNode, currentNode.right);
 		}else if(currentNode.right == null)
 		{
-			return this.transplant(tree, currentNode,currentNode.left);
-		}else{
+			return this.transplant(currentNode,currentNode.left);
+		}else{			//若待删除结点的左右结点都不为空，则用其右子树的最小值为替换待删除结点
 			BinarySerachTreeNode<T> right_min = this.minimum(currentNode.right);
 			if(right_min.parent != currentNode)
 			{
-				transplant(tree, right_min, right_min.right);
+				transplant(right_min, right_min.right);
 				right_min.right = currentNode.right;
 				right_min.right.parent = right_min;
 			}
-			transplant(tree, currentNode, right_min);
+			transplant(currentNode, right_min);
 			right_min.left = currentNode.left;
 			right_min.left.parent = right_min;
 			return true;

@@ -9,16 +9,20 @@ import java.util.Set;
 /*
  * 数学，计算相关
  */
-public class Maths {
+public class Maths {	
 	
-	public static void main(String[] str)
+	public static int getUglyDigitTh(int n)
 	{
-		int n = 11;
-		int ugly = uglyDigit(n);
-		System.out.println(ugly);
+		int ugly = 1;
+		int previous = 0;
+		while(n > 0)
+		{
+			
+		}
+		return ugly;
 	}
 	
-	//寻找{1,2,3,5}的第n 个丑数
+	//寻找{1,2,3,5}的第n 个丑数，丑数即公因子 只能是给定集合中的数
 	public static int uglyDigit(int n)
 	{
 		int number = 1;
@@ -27,9 +31,9 @@ public class Maths {
 		preme.add(3);preme.add(5);
 		
 		while(n > 0)
-		{
+		{										//获取一个数的质因子
 			Set<Integer> divisor = getPreme(number);	
-			if(preme.containsAll(divisor))
+			if(preme.containsAll(divisor))//从1开始循环，若是丑数，则计数减1.
 			{
 				n --;
 			}
