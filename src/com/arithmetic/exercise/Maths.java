@@ -10,6 +10,18 @@ import java.util.Set;
  * 数学，计算相关
  */
 public class Maths {	
+	
+	public static int getUglyDigitTh(int n)
+	{
+		int ugly = 1;
+		int previous = 0;
+		while(n > 0)
+		{
+			
+		}
+		return ugly;
+	}
+	
 	//寻找{1,2,3,5}的第n 个丑数，丑数即公因子 只能是给定集合中的数
 	public static int uglyDigit(int n)
 	{
