@@ -24,7 +24,7 @@ public class TestTrees {
 	{
 		for(int i=0; i<50; i++)
 		{
-			tree.insert(tree, new BinarySerachTreeNode(random.nextInt(200)));
+			tree.add(random.nextInt(200));
 		}
 		tree.inorder(tree.root);
 	}
