@@ -1,8 +1,7 @@
-package com.arithmetic.dissertation.sort;
+package com.arithmetic.dissertation.sort.impl;
 
-import com.arithmetic.dissertation.sort.other.Sort;
 
-public class HeapSort implements Sort{
+public class HeapSort{
 	/*
 	 * 堆排序，堆其实不是用来干排序的。堆 用来处理动态数据会比较好。
 	 */

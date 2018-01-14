@@ -1,12 +1,9 @@
-package com.arithmetic.dissertation.sort;
+package com.arithmetic.dissertation.sort.impl;
 
 import java.util.Random;
 
-import com.arithmetic.dissertation.sort.other.Sort;
 
-
-
-public class RadixSort implements Sort{
+public class RadixSort{
 /*
  * 基数排序，感觉要比其他排序要复杂，
  * 由于主循环是基于 链表数组的，所以需要把输入数据封装成 链表数组。

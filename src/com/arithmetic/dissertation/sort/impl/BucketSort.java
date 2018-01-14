@@ -1,4 +1,4 @@
-package com.arithmetic.dissertation.sort;
+package com.arithmetic.dissertation.sort.impl;
 //package com.cn.sort;
 //
 //import java.util.Random;

@@ -20,12 +20,7 @@ import java.util.Set;
  * 数学，计算相关
  */
 public class Maths {	
-<<<<<<< HEAD
-	
-	
-=======
-		
->>>>>>> 3894d37fc7f51430abab3b61b3f0534d89deece9
+
 	//寻找{1,2,3,5}的第n 个丑数，丑数即公因子 只能是给定集合中的数
 	public static int uglyDigit(int n)
 	{
