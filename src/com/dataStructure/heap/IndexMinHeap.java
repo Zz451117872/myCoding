@@ -18,6 +18,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 		indexs = new int[size];
 		rever = new int[size];
 	}
+	
 	public void push(T[] dataArr)
 	{
 		for(int i=0; i<dataArr.length; i++)
@@ -25,6 +26,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 			push(dataArr[i],i);
 		}
 	}
+	
 	//将数据插入 指定 下标处
 	public void push(T data ,int index)
 	{
@@ -42,6 +44,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 		if(index <0 || index >= this.arr.length) return null;
 		return this.arr[index];
 	}
+	
 	//更改 指定 下标处的 目标数据
 	public void change(Comparable<T> data,int index)
 	{
@@ -63,6 +66,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 	{
 		return this.count;
 	}
+	
 	public boolean isFull()
 	{
 		return this.count == this.arr.length;
@@ -72,6 +76,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 	{
 		return this.count == 0;
 	}
+	
 	public void clean()
 	{
 		for(int i=0; i<this.count; i++)
@@ -81,6 +86,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 		}
 		this.count = 0;
 	}
+	
 	//弹出数据
 	public T pop()
 	{
@@ -94,6 +100,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 		this.shiftUp(0);
 		return temp;
 	}
+	
 	// 从上往下 维护堆 的发性质
 	public void shiftUp(int parent)
 	{
@@ -146,6 +153,7 @@ public class IndexMinHeap<T extends Comparable<T>> {
 	{
 		return (child -1)/2 >= 0 ? (child - 1)/2 : -1;
 	}
+	
 	public int Left(int parent)
 	{
 		return parent*2 +1 < this.count ? parent*2 +1 : -1;

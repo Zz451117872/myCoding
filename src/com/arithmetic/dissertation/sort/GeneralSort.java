@@ -1,5 +1,7 @@
 package com.arithmetic.dissertation.sort;
-
+/*
+ * 通用排序
+ */
 public interface GeneralSort {
 	/*
 	 * 冒泡排序
@@ -51,6 +53,6 @@ public interface GeneralSort {
 	/*
 	 * 堆排序
 	 */
-	public <T extends Comparable<T>> void heapSort(T[] arr, int start, int end);
+	public <T extends Comparable<T>> void heapSort(T[] arr);
 	
 }

@@ -1,8 +1,9 @@
 package com.arithmetic.dissertation.sort.impl;
 
 import com.arithmetic.dissertation.sort.GeneralSort;
+import com.dataStructure.heap.impl.MaxHeap;
 
-public class GenaralSortImpl implements GeneralSort{
+public class GeneralSortImpl implements GeneralSort{
 
 	/*
 	 * 选择排序,性能低，不稳定
@@ -11,16 +12,13 @@ public class GenaralSortImpl implements GeneralSort{
 	public <T extends Comparable<T>> void selectSort(T[] arr, int start, int end) {
 		for(int i=start; i < end; i++)
 		{
-			boolean flag = true;
-			for(int j=start+1; j <= end - i; j++)
+			for(int j=i+1; j <= end; j++)
 			{
-				if(arr[i].compareTo(arr[j]) < 0)
+				if(arr[i].compareTo(arr[j]) > 0)
 				{
 					change(arr,i,j);
-					flag = false;
 				}
 			}
-			if(flag) break;
 		}
 	}
 	
@@ -316,9 +314,13 @@ public class GenaralSortImpl implements GeneralSort{
 		}
 	}
 
+	/*
+	 * 堆排序，性能好,但不稳定
+	 */
 	@Override
-	public <T extends Comparable<T>> void heapSort(T[] arr, int start, int end) {
-		
+	public <T extends Comparable<T>> void heapSort(T[] arr) {
+		if(arr == null || arr.length <= 1) return;
+		MaxHeap.sort(arr);
 	}
 	
 

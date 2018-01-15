@@ -19,6 +19,7 @@ public class IndexMaxHeap<T extends Comparable<T>> {
 			indexs[i]= i;
 		}
 	}
+	
 	public void push(T[] dataArr)
 	{
 		for(int i=0; i<dataArr.length; i++)
@@ -26,6 +27,7 @@ public class IndexMaxHeap<T extends Comparable<T>> {
 			push(dataArr[i]);
 		}
 	}
+	
 	public void push(T data)
 	{
 		arr[count] = data;	
@@ -93,6 +95,7 @@ public class IndexMaxHeap<T extends Comparable<T>> {
 	{
 		return (child -1)/2 >= 0 ? (child - 1)/2 : -1;
 	}
+	
 	public int Left(int parent)
 	{
 		return parent*2 +1 < this.count ? parent*2 +1 : -1;

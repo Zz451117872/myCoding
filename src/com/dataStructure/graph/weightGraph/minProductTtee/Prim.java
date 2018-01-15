@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.dataStructure.graph.weightGraph.Edge;
 import com.dataStructure.graph.weightGraph.inter.IGraph;
-import com.dataStructure.heap.MinHeap;
+import com.dataStructure.heap.impl.MinHeap;
 
 //prim算法：主要是利用 最小堆 不断弹出 最小权值边
 public class Prim {
