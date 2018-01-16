@@ -9,10 +9,11 @@ public class GeneralSortImpl implements GeneralSort{
 	 * 选择排序,性能低，不稳定
 	 */
 	@Override
-	public <T extends Comparable<T>> void selectSort(T[] arr, int start, int end) {
-		for(int i=start; i < end; i++)
+	public <T extends Comparable<T>> void selectSort(T[] arr) {
+		if(arr == null || arr.length <= 1) return;
+		for(int i=0; i < arr.length-1; i++)
 		{
-			for(int j=i+1; j <= end; j++)
+			for(int j=i+1; j <= arr.length-1; j++)
 			{
 				if(arr[i].compareTo(arr[j]) > 0)
 				{
@@ -26,11 +27,12 @@ public class GeneralSortImpl implements GeneralSort{
 	 * 冒泡排序，性能低，稳定
 	 */
 	@Override
-	public <T extends Comparable<T>> void bubbleSort(T[] arr, int start, int end) {
-		for(int i=start; i < end; i++)
+	public <T extends Comparable<T>> void bubbleSort(T[] arr) {
+		if(arr == null || arr.length <= 1) return;
+		for(int i=0; i < arr.length-1; i++)
 		{
 			int flag =1;
-			for(int j=start; j < end-i; j++)
+			for(int j=0; j < arr.length -1-i; j++)
 			{
 				if(arr[j].compareTo(arr[j+1]) > 0)
 				{
@@ -46,9 +48,9 @@ public class GeneralSortImpl implements GeneralSort{
 	 * 插入排序 是稳定的排序，且不需要额外的空间
 	 */
 	@Override
-	public <T extends Comparable<T>> void insertSort(T[] arr, int start, int end) {
-		if(arr == null || arr.length == 0 || start < 0 || end > arr.length-1) return;
-		for(int i= start+1; i <= end; i++)
+	public <T extends Comparable<T>> void insertSort(T[] arr) {
+		if(arr == null || arr.length <= 1) return;
+		for(int i= 1; i <= arr.length-1; i++)//第一个元素已是有序，所以从第二个元素开始
 		{
 			T temp = arr[i];
 			int flag = i-1;
@@ -188,23 +190,31 @@ public class GeneralSortImpl implements GeneralSort{
 	}
 
 	/*
-	 * 快排序，1路快排序 对于 大量重复数据 性能低下
+	 * 快排序，1路快排序 对于 大量重复数据 性能低下，当数据达到千万级时会出现栈溢出
 	 */
 	@Override
 	public <T extends Comparable<T>> void qulikSort1Ways(T[] arr, int start, int end) {
-		if(arr == null || arr.length<=0) return;
-		int mid = partition(arr,start,end);
-		if(mid != -1)
+		if(arr == null || arr.length<= 1 || start < 0 || end > arr.length-1 || start == end) return;
+		
+		int mid = partition(arr,start,end);//计算哨兵位置
+		if(mid != -1)//如果能得到有效的哨兵位置,则递归排序左右子数组
 		{
 			int mid_left = mid - 1<start ? start: mid-1;
 			int mid_right = mid + 1 > end ? end:mid+1;
-			qulikSort1Ways(arr,start,mid_left);
-			qulikSort1Ways(arr,mid_right,end);
+			
+			if(mid - start == 1 && end - mid == 1) return; //即出现 3,4,5，哨兵是4时，可直接返回
+			if(mid_left > start){
+				qulikSort1Ways(arr,start,mid_left);
+			}
+			if(end > mid_right){
+				qulikSort1Ways(arr,mid_right,end);
+			}
 		}
 	}
 	
 	/*
 	 * 将数据重排后，使之满足哨兵左边的数据比哨兵小，哨兵右边的数据比哨兵大，并返回哨兵位置。
+	 * 该分割算法使用一路快排算法
 	 */
 	private <T extends Comparable<T>>  int partition(T[] arr, int start, int end) 
 	{
@@ -212,12 +222,12 @@ public class GeneralSortImpl implements GeneralSort{
 		{
 			return -1;
 		}
-		T sentinel = arr[end];		//哨兵
+		T sentinel = arr[end];//以中间元素为哨兵
 		int left = start -1;
 		int right = start;
 		for( ; right <= end-1; right++)
-		{
-			if(arr[right].compareTo(sentinel) < 0)
+		{				//从左至右循环，若比哨兵大则不做操作，若比哨兵小则左右索引的值			
+			if(arr[right].compareTo(sentinel) <= 0)
 			{
 				left = left +1;
 				change(arr,left,right);
@@ -228,6 +238,7 @@ public class GeneralSortImpl implements GeneralSort{
 	}
 
 	private <T extends Comparable<T>>  void change(T[] arr, int left, int right) {
+		if(left == right) return;
 		T temp = arr[left];
 		arr[left] = arr[right];
 		arr[right] = temp;
@@ -239,10 +250,11 @@ public class GeneralSortImpl implements GeneralSort{
 	 */
 	@Override
 	public <T extends Comparable<T>> void qulikSort2Ways(T[] arr, int start, int end) {
-		if(arr == null || arr.length<=0) return;
-		if(end == start) return;
+		if(arr == null || arr.length<= 1) return;
+		if(start <0 || end > arr.length-1 || end == start) return;
 		
-		T sentinel = arr[end];		//哨兵
+		T sentinel = arr[(end+start)/2];		//使用中间元素做哨兵，对近似有序数据和大量重复数据的排序性能大大提高
+		arr[(end+start)/2] = arr[end];
 		int left = start;
 		int right = end;
 		while(left < right)
@@ -260,11 +272,12 @@ public class GeneralSortImpl implements GeneralSort{
 		}
 		arr[left] = sentinel;
 		//循环结束后，数列被分成两段，哨兵左边比哨兵小，哨兵右边比哨兵大
-		if(left > start)
+		if(left - start == 1 && end - right == 1) return;
+		if(left-1 > start)
 		{
 			qulikSort2Ways(arr,start,left-1);
 		}
-		if(right < end)
+		if(right+1 < end)
 		{
 			qulikSort2Ways(arr,right+1,end);
 		}		

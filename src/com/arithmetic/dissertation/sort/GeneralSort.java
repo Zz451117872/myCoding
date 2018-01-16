@@ -6,12 +6,12 @@ public interface GeneralSort {
 	/*
 	 * 冒泡排序
 	 */
-	public <T extends Comparable<T>> void bubbleSort(T[] arr,int start, int end);
+	public <T extends Comparable<T>> void bubbleSort(T[] arr);
 	
 	/*
 	 * 选择排序
 	 */
-	public <T extends Comparable<T>> void  selectSort(T[] arr,int start, int end);
+	public <T extends Comparable<T>> void  selectSort(T[] arr);
 	
 	/*
 	 * 插入排序
@@ -19,7 +19,7 @@ public interface GeneralSort {
 	 * start: 起始位置
 	 * end: 结束位置
 	 */
-	public <T extends Comparable<T>> void insertSort(T[] arr,int start,int end);
+	public <T extends Comparable<T>> void insertSort(T[] arr);
 	
 	/*
 	 * 归并排序：至顶向下递归
