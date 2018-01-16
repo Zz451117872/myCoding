@@ -1,7 +1,7 @@
 package com.dataStructure.heap.impl;
 
 /*
- * 堆的基本实例
+ * 普通堆的基本实例
  */
 public abstract class AbstractHeap<T extends Comparable<T>> {
 	protected T[] arr ; //堆在结构上使用数组实现的完全二叉树

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.dataStructure.graph.weightGraph.Edge;
 import com.dataStructure.graph.weightGraph.inter.IGraph;
-import com.dataStructure.heap.IndexMinHeap;
+import com.dataStructure.heap.impl.IndexMinHeap;
 
 //prim算法升级版：主要是利用 索引堆 可以对指定 下标的数据进行修改
 public class PrimUpgrade {
