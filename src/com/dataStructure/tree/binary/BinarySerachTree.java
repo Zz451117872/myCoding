@@ -1,32 +1,80 @@
 package com.dataStructure.tree.binary;
 
 import java.io.Serializable;
+import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	public BinarySerachTreeNode<T> root = null;	
 	
 	//中序遍历
-	public void inorder()
-	{
-		if(this.root != null){
-			doInorder(this.root);
-			System.out.println("");
-		}else{
-			System.out.println("empty!!!");
-		}
-	}
-	
-	private void doInorder(BinarySerachTreeNode<T> BinarySerachTreeNode)
+	public void inorder(BinarySerachTreeNode<T> BinarySerachTreeNode)
 	{
 		if(BinarySerachTreeNode != null)
 		{
-			doInorder(BinarySerachTreeNode.left);
+			if(BinarySerachTreeNode.left != null){
+				inorder(BinarySerachTreeNode.left);
+			}
 			System.out.print(BinarySerachTreeNode.key+" ");
-			doInorder(BinarySerachTreeNode.right);
+			if(BinarySerachTreeNode.right != null){
+				inorder(BinarySerachTreeNode.right);
+			}
+		}else{
+			System.out.println("this tree is empty!!!");
 		}
 	}
 	
+	//先序非递归遍历
+	public void preorderByNoRecursion(BinarySerachTreeNode<T> root)
+	{
+		if(root == null) return;
+		Stack<BinarySerachTreeNode<T>> workspace = new Stack<BinarySerachTreeNode<T>>();
+		workspace.push(root);
+		while(!workspace.isEmpty())
+		{
+			BinarySerachTreeNode<T> node = workspace.pop();
+			System.out.print(node.getKey() +"->");
+			if(node.getRight() != null)
+			{
+				workspace.push(node.getRight());
+			}
+			if(node.getLeft() != null)
+			{
+				workspace.push(node.getLeft());
+			}
+		}
+		System.out.println("");
+	}
+	
+	/*
+	 * 层级遍历
+	 */
+	public void hierarchyTraverse(BinarySerachTreeNode<T> root)
+	{
+		if(root == null) return;
+		LinkedBlockingQueue<BinarySerachTreeNode<T>> queue = new LinkedBlockingQueue<BinarySerachTreeNode<T>>();
+		try {
+			queue.put(root);
+			while(!queue.isEmpty())
+			{
+				BinarySerachTreeNode<T> node = queue.poll();
+				System.out.print(node.getKey() + "->");
+				if(node.getLeft() != null)
+				{
+					queue.put(node.getLeft());
+				}
+				if(node.getRight() != null)
+				{
+					queue.put(node.getRight());
+				}				
+			}
+			System.out.println("");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	/*
 	 * 根据key值 查找节点,需要使用到递归的方法，需要传入节点参数，以表示从哪个节点开始查
 	 */
@@ -44,6 +92,51 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 			return search(head.left,key);
 		}
 	}
+	
+	//查找第几大元素
+	public T getMaxTh(BinarySerachTreeNode<T> root, int th)
+	{
+		if(root == null) return null;
+		if(th < 1) {
+			System.out.println("th 参数错误！！");
+			return null;
+		}
+		if(th > root.getCount()) {
+			System.out.println("没有第"+th+"大元素，范围超出！！");
+			return null;
+		}
+		
+		int leftNodeCount = root.getLeft() == null ? 0 : root.getLeft().getCount();
+		if(leftNodeCount > th-1)
+		{
+			return getMaxTh(root.getLeft(),th);
+		}else if(leftNodeCount == th-1){
+			return root.getKey();
+		}else{
+			return getMaxTh(root.getRight(), th-leftNodeCount-1);
+		}
+	}
+	
+	//判断当前树是否平衡
+	private boolean isImbalance() {		
+		if(root == null) return false;
+			int leftHierarchy = 0;		//左子树层级
+			int rightHierarchy = 0;	//右子树层级
+			if(root.getLeft() != null)
+			{
+				leftHierarchy = root.getLeft().getHierarchy();
+			}
+			if(root.getRight() != null)
+			{
+				rightHierarchy = root.getRight().getHierarchy();
+			}
+			if(Math.abs(rightHierarchy - leftHierarchy) >1)
+			{			//如果左右子树层级 之差 大于1，则判定不平衡
+				return true;
+			}
+			return false;
+	}
+
 	/*
 	 * 查找指定树的最小值
 	 */
@@ -114,26 +207,21 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 			return parent;
 		}
 	}
-	/*
-	 * 新增节点
-	 */
-	public void add(T data)
-	{
-		BinarySerachTreeNode<T> BinarySerachTreeNode = new BinarySerachTreeNode<T>(data);
-		insert(BinarySerachTreeNode);
-	}
+
 	/*
 	 * 插入节点
 	 */
-	public void insert(BinarySerachTreeNode<T> BinarySerachTreeNode)
+	public void insert(T data)
 	{
-		if(BinarySerachTreeNode == null) return;
+		BinarySerachTreeNode<T> BinarySerachTreeNode = new BinarySerachTreeNode<T>(data);
+		//判断是否树中已存在该元素
 		if(this.search(this.root, BinarySerachTreeNode.key) != null) return;
 		BinarySerachTreeNode<T> insertPoint = null; //插入节点位置
 		BinarySerachTreeNode<T> head = this.root;	
 		while(head != null)		//从树根节点 向下循环，找到合适的插入点
 		{
 			insertPoint = head;
+			insertPoint.setCount(insertPoint.getCount() + 1);//所经过的插入点，节点数量都加1
 			if(BinarySerachTreeNode.key.compareTo(head.key) > 0)
 			{
 				head = head.right;
@@ -154,6 +242,11 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 			insertPoint.left = BinarySerachTreeNode;
 		}
 		BinarySerachTreeNode.parent = insertPoint;
+		
+//		if(isImbalance())
+//		{
+//			System.out.println("不平衡，需要重构");
+//		}
 		return;
 	}
 	/*
@@ -183,7 +276,7 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 		{
 			dest.parent.left = source;
 		}
-		if(source != null) source.parent = dest.parent;
+		if(source != null) source.parent = dest.parent;		
 		return true;
 	}
 	/*
@@ -212,6 +305,6 @@ public class BinarySerachTree<T extends Comparable<T>> implements Serializable{
 			right_min.left = currentNode.left;
 			right_min.left.parent = right_min;
 			return true;
-		}
+		}			
 	}
 }

@@ -24,9 +24,9 @@ public class TestTrees {
 		tree = new BinarySerachTree<Integer>();
 		for(int i=0; i<20; i++)
 		{
-			tree.add(random.nextInt(200));
+			tree.insert(random.nextInt(200));
 		}
-		tree.inorder();
+		tree.inorder(tree.root);
 	}
 	
 	@Test

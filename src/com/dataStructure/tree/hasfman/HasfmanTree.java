@@ -5,19 +5,18 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Set;
-
-public class HasfmanTree {
-	/*
-	 * 哈夫曼编码
-	 */
+/*
+ * 哈夫曼树
+ */
+public class HasfmanTree {	
 	//密码本：字符与哈夫曼编码的映射集合
 	private HashMap<Character,String> codebook = new HashMap<Character,String>();
-	private Code root;  //哈夫曼树
+	private HasfmanNode root;  //哈夫曼树
 	
 	public HasfmanTree(String sample)
 	{
 		generetor(sample); //哈夫曼树生成器
-		generatorCodeBook(this.root);//密码本初始化
+		generateCodeBook(this.root);//密码本初始化
 	}
 	
 	/*
@@ -25,52 +24,50 @@ public class HasfmanTree {
 	 * 通过对样本串的分析得到字符的权重，初始化优先队列
 	 */
 	public void generetor(String sample)
-	{
-		HashMap<Character,Code> charMap = new HashMap<Character,Code>();
+	{	
+		if(sample == null || "".equals(sample)) return;
+				//HashMap 通常用来统计
+		HashMap<Character,HasfmanNode> charMap = new HashMap<Character,HasfmanNode>();
 		char[] charArray = sample.trim().toCharArray();
 		for(int i=0; i<charArray.length; i++)
 		{
-			Code code = charMap.get(charArray[i]);
-			if(code == null)
+			HasfmanNode code = charMap.get(charArray[i]);
+			if(code == null)//若may中不存在则直接加入，若存在 则更新权重值
 			{
-				Code temp = new Code(charArray[i],1,null,null);
+				HasfmanNode temp = new HasfmanNode(charArray[i],1,null,null);
 				charMap.put(charArray[i], temp);
 			}else{
 				code.setWeight(code.getWeight() + 1);
 			}
-		}
-		PriorityQueue<Code> queue = new PriorityQueue<Code>(charMap.size(), new CodeComparator());	
-		initPriorityQueue(queue,charMap);
-	}
-	
-	/*
-	 * 初始化优先队列
-	 * 将所有字符节点 压入 优先队列，再依次弹出2个最小权重字符节点合成父节点，并将父节点压入优先队列
-	 */
-	private void initPriorityQueue(PriorityQueue<Code> queue,HashMap<Character,Code> charMap) {
-		Set<Entry<Character,Code>> entrys = charMap.entrySet();
-		Iterator<Entry<Character,Code>> i =  entrys.iterator();
+		}					//优先队列
+		PriorityQueue<HasfmanNode> queue = new PriorityQueue<HasfmanNode>(charMap.size(), new HasfmanNodeComparator());	
+		
+		Set<Entry<Character,HasfmanNode>> entrys = charMap.entrySet();
+		Iterator<Entry<Character,HasfmanNode>> i =  entrys.iterator();
 		while(i.hasNext())
 		{
-			Entry<Character,Code> entry = i.next();
-			Code code = entry.getValue();
-			queue.add(code);
+			Entry<Character,HasfmanNode> entry = i.next();
+			HasfmanNode code = entry.getValue();
+			queue.add(code);	//将map中的code元素压入优先队列
 		}	
-		builderHasfman(queue);
-	}
-
-	private void builderHasfman(PriorityQueue<Code> queue) {
-		while(!queue.isEmpty())
+		builderHasfman(queue);	//	构造 哈夫曼树
+	}	
+	
+	/*
+	 * 构造哈夫曼树：弹出权值最小的2个节点，合成1个父节点则压入队列
+	 */
+	private void builderHasfman(PriorityQueue<HasfmanNode> queue) {		
+		while(queue != null && !queue.isEmpty())
 		{
-		if(queue.size() == 1)
-		{
-			this.root  = (Code) queue.poll();
-			this.root.setCode("#");
-		}else{
-			Code minCode1 = (Code) queue.poll();
-			Code minCode2 = (Code) queue.poll();
-			Code parent = new Code('#',minCode1.getWeight()+minCode2.getWeight(),minCode1,minCode2);
-			queue.add(parent);
+			if(queue.size() == 1)
+			{
+				this.root  = (HasfmanNode) queue.poll();
+				this.root.setCode("");
+			}else{
+				HasfmanNode firstMin = (HasfmanNode) queue.poll();
+				HasfmanNode secondMin = (HasfmanNode) queue.poll();
+				HasfmanNode parent = new HasfmanNode(firstMin.getWeight()+secondMin.getWeight(),firstMin,secondMin);
+				queue.add(parent);
 			}
 		}	
 	}
@@ -79,31 +76,32 @@ public class HasfmanTree {
 	 * 密码本初始化
 	 * 与遍历二叉树差不多。
 	 */
-	public void generatorCodeBook(Code root)
+	public void generateCodeBook(HasfmanNode root)
 	{
+		if(root == null) return;
 		if(root.getLeft() == null && root.getRight() == null)
-		{
+		{				//是叶子节点（一个叶子节点对应一个哈夫曼编码），
 			String code = root.getCode();
 			this.codebook.put(root.getC(), code);
 		}else{
 			if(root.getLeft() != null)
-			{
-				Code left = root.getLeft();
+			{			//给左子节点 更新编码
+				HasfmanNode left = root.getLeft();
 				left.setCode(root.getCode() + "0");
-				generatorCodeBook(left);
+				generateCodeBook(left);
 			}
 			if(root.getRight() != null)
-			{
-				Code right = root.getRight();
+			{			//给右子节点 更新编码
+				HasfmanNode right = root.getRight();
 				right.setCode(root.getCode() + "1");
-				generatorCodeBook(right);
+				generateCodeBook(right);
 			}
 		}
 	}
 
-	public void  display(Code root)
+	public void  display(HasfmanNode root)
 	{
-		if(root != null)
+		if(root != null && root.getC() != null)
 		{
 			System.out.println("字符："+root.getC() + "  编码："+ root.getCode()+ "  权重："+root.getWeight());
 		}
@@ -120,10 +118,9 @@ public class HasfmanTree {
 	/*
 	 * 解密功能，将二进制串解密为 字符串
 	 */
-	private  String decode(String code) {
-		System.out.println("密钥："+code);
+	public  String decode(String code) {
 		char[] codeArray = code.toCharArray();
-		Code head = this.root;
+		HasfmanNode head = this.root;
 		String message = "";
 		int index = 0;
 		while( index <= codeArray.length)
@@ -150,7 +147,7 @@ public class HasfmanTree {
 	/*
 	 * 加密功能，将字符串加密为二进制串
 	 */
-	private  String encode(String msg) {
+	public  String encode(String msg) {
 		char[] charArray = msg.trim().toCharArray();
 		String encodeString = "";
 		for(int i=0; i<charArray.length; i++)
@@ -161,20 +158,17 @@ public class HasfmanTree {
 				System.out.println("输入消息不符合你大爷的条件");
 				return "xx00";
 			}
-			encodeString += code.substring(1);
+			encodeString += code;
 		}
 		return encodeString;
 	}
+
 	
-	public static void main(String[] str)
-	{
-		String sample = "alksjhfgdalkfhjsaghjslaksajhadsghdsalakdhsjakjhfgdh";
-		HasfmanTree tree = new HasfmanTree(sample);
-		String msg = "asjhgdfghdfffffffffffffdf";
-		String code = tree.encode(msg);
-		System.out.println("加密后的消息为："+code);
-		String message = tree.decode(code);
-		System.out.println("解码后的消息为："+message);
-//		tree.display(tree.root);
+	
+
+	public HasfmanNode getRoot() {
+		return root;
 	}
-}
+
+		
+}	
