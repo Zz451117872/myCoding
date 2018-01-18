@@ -2,16 +2,17 @@ package com.dataStructure.graph.weightGraph.shortPath;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.dataStructure.graph.weightGraph.Edge;
-import com.dataStructure.graph.weightGraph.inter.IGraph;
+
+import com.dataStructure.graph.entry.Edge;
+import com.dataStructure.graph.weightGraph.IGraph;
 
 /*
  * 单源最短路径：
  * 完全可以不用索引堆 ，为什么视频中强调用索引堆？
  */
-public class SingleSourceShortPath {
+public class SingleSourceShortPath<T extends Comparable<T>> {
 	private IGraph G;
-	List<Edge<Double>> edges; //横切边集合 ？为什么要有这个集合？因为只有是横切边才有需要mark而未mark的顶点
+	List<Edge<T>> edges; //横切边集合 ？为什么要有这个集合？因为只有是横切边才有需要mark而未mark的顶点
 	private int source;		// 从哪里开始寻路
 	private double[] minPathValue;//最短路径值
 	private int vertex;			//
@@ -58,7 +59,7 @@ public class SingleSourceShortPath {
 		}else{
 			this.source = source;
 		}
-		edges = new ArrayList<Edge<Double>>();
+		edges = new ArrayList<Edge<T>>();
 		minPathValue = new double[this.vertex];
 		from = new ArrayList[this.vertex];
 		marked = new boolean[this.vertex];
@@ -84,10 +85,10 @@ public class SingleSourceShortPath {
 	{
 		if(marked[vertex]) return;
 		marked[vertex] = true;		//标记它，并获得该顶点的邻接边		
-		List<Edge<Double>> edges = this.G.adjacentEdge(vertex);
+		List<Edge<T>> edges = this.G.adjacentEdge(vertex);
 		if(edges == null) return;
 		
-		for(Edge<Double> edge : edges)
+		for(Edge<T> edge : edges)
 		{
 			if(isCrossEdge(edge))//如果是横切边 则加入，否则剔除
 			{

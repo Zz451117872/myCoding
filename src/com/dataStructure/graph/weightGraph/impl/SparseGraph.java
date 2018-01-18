@@ -3,39 +3,40 @@ package com.dataStructure.graph.weightGraph.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dataStructure.graph.weightGraph.Edge;
-import com.dataStructure.graph.weightGraph.inter.IGraph;
+import com.dataStructure.graph.entry.Edge;
+import com.dataStructure.graph.entry.GraphNode;
+import com.dataStructure.graph.weightGraph.IGraph;
 
 
 //稀疏图，实现方式为 邻接表
-public class SparseGraph implements IGraph{
-	private int vertex;
-	private int edge;
-	private Node[] graph;
-	private boolean directed;
-	private List<Edge<Double>> edges;
+public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
+	private int vertex;//顶点数
+	private int edge;//边数
+	private GraphNode<T>[] graph;//图
+	private boolean directed;//是否有向
+	private List<Edge<T>> edges;//边集合
 	
 	public SparseGraph(int vertex,boolean directed)
 	{
 		this.vertex = vertex;
 		this.directed = directed;
 		this.edge = 0;
-		graph = new Node[this.vertex];	
-		edges = new ArrayList<Edge<Double>>();
+		graph = new GraphNode[this.vertex];	
+		edges = new ArrayList<Edge<T>>();
 	}
 	
-	public void addEdge(int vStart,int vEnd,double weight)
+	public void addEdge(int vStart,int vEnd,T weight)
 	{
 		if(vStart < 0 || vStart > this.vertex) return;
 		if(vEnd < 0 || vEnd > this.vertex) return;
 		
 		if(hasEdge(vStart,vEnd)) return;
 		
-		Edge<Double> edge = new Edge<Double>(vStart,vEnd,weight);
-		Edge<Double> reverEdge = new Edge<Double>(vEnd,vStart,weight);
+		Edge<T> edge = new Edge<T>(vStart,vEnd,weight);
+		Edge<T> reverEdge = new Edge<T>(vEnd,vStart,weight);
 		if(this.graph[vStart] == null)
 		{
-			this.graph[vStart] = new Node(edge);
+			this.graph[vStart] = new GraphNode<T>(edge);
 		}else{
 			this.graph[vStart].addNode(edge);
 		}	
@@ -44,7 +45,7 @@ public class SparseGraph implements IGraph{
 		{
 			if(this.graph[vEnd] == null)
 			{
-				this.graph[vEnd] = new Node(reverEdge);
+				this.graph[vEnd] = new GraphNode<T>(reverEdge);
 			}else{
 				this.graph[vEnd].addNode(reverEdge);
 			}			
@@ -59,9 +60,9 @@ public class SparseGraph implements IGraph{
 		return this.graph[vStart].contains(vStart,vEnd);
 	}
 	
-	public List<Edge<Double>> adjacentEdge(int vertex)
+	public List<Edge<T>> adjacentEdge(int vertex)
 	{
-		List<Edge<Double>> edges = new ArrayList<Edge<Double>>();
+		List<Edge<T>> edges = new ArrayList<Edge<T>>();
 		Adjacent iteator = new Adjacent(vertex,this);
 		while(!iteator.end())
 		{
@@ -119,11 +120,11 @@ public class SparseGraph implements IGraph{
 
 
 
-	public List<Edge<Double>> getEdges() {
+	public List<Edge<T>> getEdges() {
 		return edges;
 	}
 
-	public void setEdges(List<Edge<Double>> edges) {
+	public void setEdges(List<Edge<T>> edges) {
 		this.edges = edges;
 	}
 
@@ -150,7 +151,7 @@ public class SparseGraph implements IGraph{
 	class Adjacent{
 		private SparseGraph G;
 		private int vertex;
-		private Node index;
+		private GraphNode<T> index;
 		
 		public Adjacent(int vertex,SparseGraph G)
 		{
@@ -159,7 +160,7 @@ public class SparseGraph implements IGraph{
 			this.index = this.G.graph[this.vertex];
 		}
 		
-		public Edge<Double> get()
+		public Edge<T> get()
 		{		
 			if(index != null)
 			{
@@ -177,79 +178,5 @@ public class SparseGraph implements IGraph{
 		{
 			return this.index == null;
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	class Node{
-		private Edge<Double> edge;
-		private Node next;
-		
-		public Node(Edge edge)
-		{
-			this.edge = edge;
-			this.next = null;
-		}
-
-		public void display() 
-		{
-			Node node = this;
-			while( node != null)
-			{
-				System.out.println(node.getEdge().toString());
-				node = node.getNext();
-			}
-		}
-
-		public boolean contains(int vStart,int vEnd) 
-		{
-			Node node = this;
-			while( node != null)
-			{
-				if(node.getEdge().getOther(vStart) == vEnd)
-				{
-					return true;
-				}
-				node = node.getNext();
-			}
-			return false;
-		}
-
-		public void addNode(Edge edge) 
-		{
-			Node node = this;
-			while(node.getNext() != null)
-			{
-				node = node.getNext();
-			}
-			node.setNext(new Node(edge));
-		}
-
-	
-
-		public Edge<Double> getEdge() {
-			return edge;
-		}
-
-		public void setEdge(Edge<Double> edge) {
-			this.edge = edge;
-		}
-
-		public Node getNext() {
-			return next;
-		}
-
-		public void setNext(Node next) {
-			this.next = next;
-		}
-		
 	}
 }

@@ -3,18 +3,18 @@ package com.dataStructure.graph.weightGraph.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dataStructure.graph.weightGraph.Edge;
-import com.dataStructure.graph.weightGraph.inter.IGraph;
+import com.dataStructure.graph.entry.Edge;
+import com.dataStructure.graph.weightGraph.IGraph;
 
 
 
 //稠密图：实现方式为 邻接矩阵
-public class DenseGraph implements IGraph{
-	private int vertex;
-	private int edge;
-	private boolean directed;
-	private Edge<Double>[][] graph;
-	private List<Edge<Double>> edges;
+public class DenseGraph<T extends Comparable<T>> implements IGraph<T>{
+	private int vertex; //顶点数
+	private int edge;//边数
+	private boolean directed;//是否有向
+	private Edge<T>[][] graph;//图
+	private List<Edge<T>> edges;//所有边的集合
 	
 	public DenseGraph(int vertex,boolean directed)
 	{
@@ -22,18 +22,18 @@ public class DenseGraph implements IGraph{
 		this.edge = 0;
 		this.directed = directed;
 		graph = new Edge[this.vertex][this.vertex];
-		edges = new ArrayList<Edge<Double>>();
+		edges = new ArrayList<Edge<T>>();
 	}
 	
-	public void  addEdge(int vStart,int vEnd,double weight)
+	public void  addEdge(int vStart,int vEnd,T weight)
 	{
-		if(vStart < 0 || vStart > this.vertex) return;
-		if(vEnd < 0 || vEnd > this.vertex) return;
+		if(vStart < 0 || vStart >= this.vertex) return;
+		if(vEnd < 0 || vEnd >= this.vertex) return;
 		
 		if(hasEdge(vStart,vEnd)) return;
 		
-		Edge<Double> edge = new Edge<Double>(vStart,vEnd,weight);
-		Edge<Double> reverEdge = new Edge<Double>(vEnd,vStart,weight);
+		Edge<T> edge = new Edge<T>(vStart,vEnd,weight);
+		Edge<T> reverEdge = new Edge<T>(vEnd,vStart,weight);
 		
 		this.graph[vStart][vEnd] = edge;
 		edges.add(edge);
@@ -69,9 +69,9 @@ public class DenseGraph implements IGraph{
 		return this.graph[vStart][vEnd] != null;
 	}
 	
-	public List<Edge<Double>> adjacentEdge(int vertex)
+	public List<Edge<T>> adjacentEdge(int vertex)
 	{		
-		List<Edge<Double>> edges = new ArrayList<Edge<Double>>();
+		List<Edge<T>> edges = new ArrayList<Edge<T>>();
 		AdjIterator adj = new AdjIterator(vertex,this);
 		while(!adj.end())
 		{
@@ -83,9 +83,7 @@ public class DenseGraph implements IGraph{
 		}
 		return edges;
 	}
-	
-	
-	
+		
 	public int getVertex() {
 		return vertex;
 	}
@@ -110,31 +108,27 @@ public class DenseGraph implements IGraph{
 		this.directed = directed;
 	}
 	
-
-
-	public List<Edge<Double>> getEdges() {
+	public List<Edge<T>> getEdges() {
 		return edges;
 	}
 
-	public void setEdges(List<Edge<Double>> edges) {
+	public void setEdges(List<Edge<T>> edges) {
 		this.edges = edges;
 	}
 
-
-
 	class AdjIterator{
-		private DenseGraph G;
+		private DenseGraph<T> G;
 		private int index;
 		private int vertex;
 		
-		public AdjIterator(int vertex ,DenseGraph G)
+		public AdjIterator(int vertex ,DenseGraph<T> G)
 		{
 			this.G = G;
 			this.vertex = vertex;
 			this.index = 0;
 		}
 		
-		public Edge<Double> get()
+		public Edge<T> get()
 		{
 			if(this.G.graph[this.vertex][index] != null)
 			{
