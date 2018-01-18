@@ -8,23 +8,23 @@ import com.dataStructure.graph.weightGraph.IGraph;
 import com.dataStructure.heap.impl.MinHeap;
 
 //prim算法：主要是利用 最小堆 不断弹出 最小权值边
-public class Prim {
+public class Prim<T extends Comparable<T>> {
 	
-	private IGraph G;							//图
+	private IGraph<T> G;							//图
 	private boolean[] marked;					//是否被标记了
-	private List<Edge<Double>> minProductTree;	//最小生成 树
-	private MinHeap<Edge<Double>> minHeap;		//最小堆 
+	private List<Edge<T>> minProductTree;	//最小生成 树
+	private MinHeap<Edge<T>> minHeap;		//最小堆 
 	private double minWeight ;			//最小生成树 总权值
 	private int vertex;
 	
-	public Prim(IGraph G)
+	public Prim(IGraph<T> G)
 	{
 		this.G = G;
 		minWeight = 0;
 		vertex = G.getVertex();
 		marked = new boolean[this.G.getVertex()];
-		minHeap = new MinHeap<Edge<Double>>(this.G.getEdge());
-		minProductTree = new ArrayList<Edge<Double>>();
+		minHeap = new MinHeap<Edge<T>>(this.G.getEdge());
+		minProductTree = new ArrayList<Edge<T>>();
 		
 		for(int i=0; i < this.G.getVertex(); i++)
 		{
@@ -34,10 +34,10 @@ public class Prim {
 		mark(0);	//从0开始标记，如果不是连通图，需要遍历标记
 		while(!minHeap.isEmpty())
 		{
-			Edge<Double> minEdge = minHeap.pop();	//最小堆 挤出最小权重 边
+			Edge<T> minEdge = minHeap.pop();	//最小堆 挤出最小权重 边
 			if(!isTransectionEdge(minEdge)) continue; //判断是否是 横切边
 			minProductTree.add(minEdge);		//将最小权重 边 加入最小生成树
-			this.minWeight += minEdge.getWeight(); //更新 最小生成树 总权值
+			this.minWeight += (Double)minEdge.getWeight(); //更新 最小生成树 总权值
 			if(minProductTree.size() == this.vertex - 1) return;		//最小边数量 等于 顶点数量减1时，生成完成
 			
 			if(marked[minEdge.getV()])
@@ -54,7 +54,7 @@ public class Prim {
 	{
 		if( minProductTree != null && minProductTree.size() > 0)
 		{
-			for(Edge<Double> edge : minProductTree)
+			for(Edge<T> edge : minProductTree)
 			{
 				System.out.println(edge.toString());
 			}
@@ -73,11 +73,11 @@ public class Prim {
 		
 		marked[vertex] = true;	//将标记 顶点 置为 已标记
 								//得到该顶点的 邻接边，并去除已 生成最小树的边
-		List<Edge<Double>> edges = this.G.adjacentEdge(vertex);
+		List<Edge<T>> edges = this.G.adjacentEdge(vertex);
 		
 		if(edges != null)
 		{
-			for(Edge<Double> edge : edges)
+			for(Edge<T> edge : edges)
 			{
 				if(isTransectionEdge(edge))
 				{
@@ -87,7 +87,7 @@ public class Prim {
 		}				
 	}
 	// 判断 是否是横切边
-	private boolean isTransectionEdge(Edge<Double> edge) 
+	private boolean isTransectionEdge(Edge<T> edge) 
 	{
 		if(marked[edge.getV()] != marked[edge.getW()])
 		{

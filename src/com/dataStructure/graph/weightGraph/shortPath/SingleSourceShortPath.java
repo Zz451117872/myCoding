@@ -11,7 +11,7 @@ import com.dataStructure.graph.weightGraph.IGraph;
  * 完全可以不用索引堆 ，为什么视频中强调用索引堆？
  */
 public class SingleSourceShortPath<T extends Comparable<T>> {
-	private IGraph G;
+	private IGraph<T> G;
 	List<Edge<T>> edges; //横切边集合 ？为什么要有这个集合？因为只有是横切边才有需要mark而未mark的顶点
 	private int source;		// 从哪里开始寻路
 	private double[] minPathValue;//最短路径值
@@ -49,7 +49,8 @@ public class SingleSourceShortPath<T extends Comparable<T>> {
 			}
 		}
 	}
-	public SingleSourceShortPath(IGraph G,int source)
+	
+	public SingleSourceShortPath(IGraph<T> G,int source)
 	{
 		this.G = G;
 		this.vertex = G.getVertex();
@@ -86,18 +87,18 @@ public class SingleSourceShortPath<T extends Comparable<T>> {
 		if(marked[vertex]) return;
 		marked[vertex] = true;		//标记它，并获得该顶点的邻接边		
 		List<Edge<T>> edges = this.G.adjacentEdge(vertex);
-		if(edges == null) return;
+		if(edges == null || edges.isEmpty()) return;
 		
 		for(Edge<T> edge : edges)
 		{
 			if(isCrossEdge(edge))//如果是横切边 则加入，否则剔除
 			{
-				int index = edge.getOther(vertex);
+				int index = edge.getOther(vertex);//通过边的一个顶点得到边的另一个顶点
 				if(minPathValue[index] == -1)
-				{	//如果最短路径值 为-1，则未开包，直接放值
-					minPathValue[index] = minPathValue[vertex] + edge.getWeight();
+				{			//如果最短路径值 为-1，则未开包，直接放值
+					minPathValue[index] = minPathValue[vertex] + (Double)(edge.getWeight());
 				}else{	//苦已开包，则需判断更新
-					double newWeight = minPathValue[vertex] + edge.getWeight();
+					double newWeight = minPathValue[vertex] + (Double)(edge.getWeight());
 					if(newWeight < minPathValue[index])
 					{
 						minPathValue[index] = newWeight;
@@ -136,9 +137,10 @@ public class SingleSourceShortPath<T extends Comparable<T>> {
 		}
 		return recently;
 	}
+	
 	//判断横切边
-	private boolean isCrossEdge(Edge<Double> edge) 
-	{
+	private boolean isCrossEdge(Edge<T> edge) 
+	{				//边的两个顶点，一个是已标记的一个是未标记的，就是横切边
 		if(marked[edge.getV()] != marked[edge.getW()])
 		{
 			return true;

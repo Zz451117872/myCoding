@@ -24,11 +24,11 @@ public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
 		graph = new GraphNode[this.vertex];	
 		edges = new ArrayList<Edge<T>>();
 	}
-	
+	//在两个顶点间添加一条带权边
 	public void addEdge(int vStart,int vEnd,T weight)
 	{
-		if(vStart < 0 || vStart > this.vertex) return;
-		if(vEnd < 0 || vEnd > this.vertex) return;
+		if(vStart < 0 || vStart >= this.vertex) return;
+		if(vEnd < 0 || vEnd >= this.vertex) return;
 		
 		if(hasEdge(vStart,vEnd)) return;
 		
@@ -52,14 +52,14 @@ public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
 		}
 		this.edge++;
 	}
-	
+	//判断两个顶点间是否存在边
 	public boolean hasEdge(int vStart,int vEnd)
 	{
 		if(this.graph[vStart] == null) return false;
 		
 		return this.graph[vStart].contains(vStart,vEnd);
 	}
-	
+	//获取指定顶点的所有邻接边
 	public List<Edge<T>> adjacentEdge(int vertex)
 	{
 		List<Edge<T>> edges = new ArrayList<Edge<T>>();
@@ -74,7 +74,7 @@ public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
 		}
 		return edges;
 	}
-		
+	//打印图信息
 	public void matrix()
 	{
 		for(int i=0; i<this.vertex; i++)
@@ -82,16 +82,7 @@ public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
 			this.graph[i].display();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public int getVertex() {
 		return vertex;
 	}
@@ -107,18 +98,6 @@ public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
 	public void setEdge(int edge) {
 		this.edge = edge;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public List<Edge<T>> getEdges() {
 		return edges;
@@ -136,24 +115,12 @@ public class SparseGraph<T extends Comparable<T>> implements IGraph<T>{
 		this.directed = directed;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
 	class Adjacent{
-		private SparseGraph G;
+		private SparseGraph<T> G;
 		private int vertex;
 		private GraphNode<T> index;
 		
-		public Adjacent(int vertex,SparseGraph G)
+		public Adjacent(int vertex,SparseGraph<T> G)
 		{
 			this.vertex = vertex;
 			this.G = G;

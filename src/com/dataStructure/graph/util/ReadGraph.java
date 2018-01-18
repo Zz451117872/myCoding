@@ -15,9 +15,9 @@ import com.dataStructure.graph.weightGraph.IGraph;
 import com.dataStructure.graph.weightGraph.impl.DenseGraph;
 import com.dataStructure.graph.weightGraph.impl.SparseGraph;
 
-public class ReadGraph {
+public class ReadGraph<T extends Comparable<T>> {
 	
-	public static void writeGraph(IGraph graph,String path)
+	public  void writeGraph(IGraph<T> graph,String path)
 	{
 		File file = new File(path);
 		if(!file.exists() || file.isDirectory())
@@ -35,7 +35,7 @@ public class ReadGraph {
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 			int V = graph.getVertex();
 			int E = graph.getEdge();
-			List<Edge<Double>> edges = graph.getEdges();
+			List<Edge<T>> edges = graph.getEdges();
 			String data = V+" "+E;
 			writer.write(data);
 			writer.newLine();
@@ -66,7 +66,7 @@ public class ReadGraph {
 		
 	}
 	
-	public static IGraph readGraph(String path,boolean dense)
+	public   IGraph readGraph(String path, boolean dense)
 	{
 		File file = new File(path);
 		if(!file.exists() || file.isDirectory())
@@ -75,7 +75,7 @@ public class ReadGraph {
 			return null;
 		}
 		BufferedReader reader = null;
-		IGraph graph = null;
+		IGraph<T> graph = null;
 		
 		try{
 			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -105,18 +105,18 @@ public class ReadGraph {
 				String[] vertexArr = edgeStr.split(" ");
 				int source = -1;
 				int dest = -1;
-				double weight = -1;
+				T weight = null;
 				try{
 					source = Integer.parseInt(vertexArr[0]);
 					dest = Integer.parseInt(vertexArr[1]);
-					weight = Double.parseDouble(vertexArr[2]);
+					weight = getT(vertexArr[2].trim());
 				}catch(Exception e){
 					System.out.println("解析文件异常");
 					return null;
 				}
 				if(source < 0 || source >= graph.getVertex()) return null;
 				if(dest < 0 || dest >= graph.getVertex()) return null;
-				if(weight < 0) return null;
+				if(weight == null) return null;
 				
 				graph.addEdge(source, dest,weight);
 				edgeStr = reader.readLine();
@@ -135,5 +135,10 @@ public class ReadGraph {
 				}
 			}
 		}		 
+	}
+
+	private T getT(String str) {
+		T t = (T) new Double(str);
+		return t;
 	}
 }

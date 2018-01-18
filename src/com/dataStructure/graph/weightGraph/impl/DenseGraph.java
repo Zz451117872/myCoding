@@ -24,7 +24,7 @@ public class DenseGraph<T extends Comparable<T>> implements IGraph<T>{
 		graph = new Edge[this.vertex][this.vertex];
 		edges = new ArrayList<Edge<T>>();
 	}
-	
+	//在两点之间添加一条带权边
 	public void  addEdge(int vStart,int vEnd,T weight)
 	{
 		if(vStart < 0 || vStart >= this.vertex) return;
@@ -44,7 +44,7 @@ public class DenseGraph<T extends Comparable<T>> implements IGraph<T>{
 		}
 		this.edge ++;
 	}
-	
+	//打印图信息
 	public void matrix()
 	{
 		System.out.println("--------------------------");
@@ -63,12 +63,12 @@ public class DenseGraph<T extends Comparable<T>> implements IGraph<T>{
 		}
 		System.out.println("--------------------------");
 	}
-	
+	//判断两点之间是否有边
 	public boolean hasEdge(int vStart,int vEnd)
 	{
 		return this.graph[vStart][vEnd] != null;
 	}
-	
+	//获取指定节点的邻接边
 	public List<Edge<T>> adjacentEdge(int vertex)
 	{		
 		List<Edge<T>> edges = new ArrayList<Edge<T>>();
