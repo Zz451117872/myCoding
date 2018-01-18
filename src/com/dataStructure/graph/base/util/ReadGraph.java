@@ -6,9 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.dataStructure.graph.base.IGraph;
 import com.dataStructure.graph.base.impl.DenseGraph;
 import com.dataStructure.graph.base.impl.SparseGraph;
-import com.dataStructure.graph.base.inter.IGraph;
 
 public class ReadGraph {
 	public static void writeGraph(IGraph graph,String path)
@@ -59,7 +59,7 @@ public class ReadGraph {
 					source = Integer.parseInt(vertexArr[0]);
 					dest = Integer.parseInt(vertexArr[1]);
 				}catch(Exception e){
-					System.out.println("½âÎöÎÄ¼þÒì³£");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ì³£");
 					return null;
 				}
 				if(source < 0 || source >= graph.getVertex()) return null;

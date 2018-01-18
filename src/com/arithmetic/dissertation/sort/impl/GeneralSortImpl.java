@@ -68,48 +68,50 @@ public class GeneralSortImpl implements GeneralSort{
 	 */
 	@Override
 	public <T extends Comparable<T>> void mergeSortByRecursion(T[] arr, int start, int end, T[] room) {
+		if(arr == null || arr.length <= 1 ||  arr.length != room.length)  return;
+		if(start == end) return;
 		
 		int mid = (end + start)/2;
-		int st1 = start;
-		int en1= mid;
-		int st2 = mid +1;
-		int en2 = end;
+		int left_start = start;//将数据按中点分成两块
+		int left_end = mid;
+		int right_start = mid +1;
+		int right_end = end;
 		int index = start;
-		//如果还可以分割，则继续分割
-		if(en1 > st1)
+		//递归求左右子问题的解
+		if(left_end > left_start)
 		{
-			mergeSortByRecursion(arr,st1,en1,arr);
+			mergeSortByRecursion(arr,left_start,left_end,arr);
 		}
-		if(en2 > st2)
+		if(right_end > right_start)
 		{
-			mergeSortByRecursion(arr,st2,en2,arr);
+			mergeSortByRecursion(arr,right_start,right_end,arr);
 		}
 		//如何不可以分割，则合并2个有序的子集
-		while(st1 <= en1 && st2 <= en2)
+		while(left_start <= left_end && right_start <= right_end)
 		{
-			if(arr[st1].compareTo(arr[st2]) <= 0)
+			if(arr[left_start].compareTo(arr[right_start]) <= 0)
 			{
-				room[index] = arr[st1];
-				st1++;
+				room[index] = arr[left_start];
+				left_start++;
 				index++;
 			}else{
-				room[index] = arr[st2];
-				st2++;
+				room[index] = arr[right_start];
+				right_start++;
 				index++;
 			}
 		}
 		//处理合并逻辑后剩余的项
-		while(en1 >= st1)
+		while(left_end >= left_start)
 		{
-			room[index] = arr[st1];
-			st1++;
+			room[index] = arr[left_start];
+			left_start++;
 			index++;
 		}
 		//处理合并逻辑后剩余的项
-		while(en2 >= st2)
+		while(right_end >= right_start)
 		{
-			room[index] = arr[st2];
-			st2++;
+			room[index] = arr[right_start];
+			right_start++;
 			index++;
 		}
 		//合并结束后将数据写回
@@ -190,7 +192,7 @@ public class GeneralSortImpl implements GeneralSort{
 	}
 
 	/*
-	 * 快排序，1路快排序 对于 大量重复数据 性能低下，当数据达到千万级时会出现栈溢出
+	 * 快排1路 乱序数据排序性能好 
 	 */
 	@Override
 	public <T extends Comparable<T>> void qulikSort1Ways(T[] arr, int start, int end) {
@@ -222,7 +224,9 @@ public class GeneralSortImpl implements GeneralSort{
 		{
 			return -1;
 		}
-		T sentinel = arr[end];//以中间元素为哨兵
+		int index = (end + start)/2;
+		T sentinel = arr[index];//以中间元素为哨兵
+		arr[index] = arr[end];
 		int left = start -1;
 		int right = start;
 		for( ; right <= end-1; right++)
@@ -233,7 +237,10 @@ public class GeneralSortImpl implements GeneralSort{
 				change(arr,left,right);
 			}
 		}
-		change(arr,left+1,right);
+		//change(arr,left+1,right);
+		arr[end] = arr[left+1];
+		arr[left+1] = sentinel;
+				
 		return left+1;
 	}
 
@@ -245,8 +252,7 @@ public class GeneralSortImpl implements GeneralSort{
 	}
 	
 	/*
-	 * 快排序,双路快排序能解决 1路快排序中 对于大量重复数据 性能低下的问题
-	 * 快排序是不稳定的，不需要额外的空间。
+	 * 快排2路
 	 */
 	@Override
 	public <T extends Comparable<T>> void qulikSort2Ways(T[] arr, int start, int end) {
@@ -257,19 +263,29 @@ public class GeneralSortImpl implements GeneralSort{
 		arr[(end+start)/2] = arr[end];
 		int left = start;
 		int right = end;
+		boolean repeat = true;
 		while(left < right)
 		{
 			while(left < right && arr[left].compareTo(sentinel) <= 0)
 			{	
+				if(arr[left].compareTo(sentinel) < 0)
+				{
+					repeat = false;
+				}
 				left ++;
 			}
 			arr[right] = arr[left];
 			while(left < right && arr[right].compareTo(sentinel) >= 0)
 			{
+				if(arr[right].compareTo(sentinel) > 0)
+				{
+					repeat = false;
+				}
 				right --;
 			}
 			arr[left] = arr[right];
 		}
+		if(repeat) return;
 		arr[left] = sentinel;
 		//循环结束后，数列被分成两段，哨兵左边比哨兵小，哨兵右边比哨兵大
 		if(left - start == 1 && end - right == 1) return;
@@ -284,15 +300,14 @@ public class GeneralSortImpl implements GeneralSort{
 	}
 
 	/*
-	 * 快速排序：3路快排序，解决2路1路对高重复数据 排序 栈溢出问题。
-	 * 如果需要保证其稳定性，则需要损失大量性能。在不保证稳定性的前提下，3路快排序对高重复数据排序性能优秀
+	 * 快排3路 大量重复数据排序性能好
 	 */
 	@Override
-	public <T extends Comparable<T>> void qulikSort3Ways(T[] arr, int start, int end , T[] room) {
+	public <T extends Comparable<T>> void qulikSort3Ways(T[] arr, int start, int end ) {
 		if(end == start) return;
 		
 		int begin = start;
-		T sentinel = arr[end];
+		T sentinel = arr[(end+start)/2];
 		int lt = start -1;
 		int gt = end+1;
 		while(begin < gt)
@@ -319,11 +334,11 @@ public class GeneralSortImpl implements GeneralSort{
 		
 		if(lt > start)
 		{
-			qulikSort3Ways(arr,start,lt,room);
+			qulikSort3Ways(arr,start,lt);
 		}
 		if(gt < end)
 		{
-			qulikSort3Ways(arr,gt,end,room);
+			qulikSort3Ways(arr,gt,end);
 		}
 	}
 

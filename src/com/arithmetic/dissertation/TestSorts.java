@@ -13,7 +13,7 @@ import com.arithmetic.dissertation.sort.impl.GeneralSortImpl;
 
 public class TestSorts{
 	Random random = new Random();
-	static int scale = 100000000;
+	static int scale = 10000000;
 	static int range = 100;
 	static int Inversion = 100;
 		
@@ -27,7 +27,7 @@ public class TestSorts{
 				GeneralSortImpl.class.getInterfaces(),
 				handler);
 		//out_of_order(sorter);
-		almost_order(sorter);
+		//almost_order(sorter);
 		repeat_order(sorter);
 	}	
 		
@@ -35,69 +35,57 @@ public class TestSorts{
 	{
 		System.out.println("--乱序数据-------------");
 		Integer[] arr = this.createClassArray(scale, scale);
-//		sorter.bubbleSort(arr);
-//		arr = this.createClassArray(scale, scale);
-//		sorter.selectSort(arr);
-//		arr = this.createClassArray(scale, scale);
 //		sorter.insertSort(arr);
 //		arr = this.createClassArray(scale, scale);
-//		sorter.qulikSort1Ways(arr, 0, arr.length-1);
-//		arr = this.createClassArray(scale, scale);
+		sorter.qulikSort1Ways(arr, 0, arr.length-1);
+		arr = this.createClassArray(scale, scale);
 		sorter.qulikSort2Ways(arr, 0, arr.length-1);
-//		arr = this.createClassArray(scale, scale);
-//		sorter.qulikSort3Ways(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, scale);
-//		sorter.mergeSortByRecursion(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, scale);
-//		sorter.mergeSortByRecurrence(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, scale);
-//		sorter.heapSort(arr);
+		arr = this.createClassArray(scale, scale);
+		sorter.qulikSort3Ways(arr, 0, arr.length-1);
+		arr = this.createClassArray(scale, scale);
+		sorter.mergeSortByRecursion(arr, 0, arr.length-1, new Integer[arr.length]);
+		arr = this.createClassArray(scale, scale);
+		sorter.mergeSortByRecurrence(arr, 0, arr.length-1, new Integer[arr.length]);
+		arr = this.createClassArray(scale, scale);
+		sorter.heapSort(arr);
 	}
 	
 	private void almost_order(GeneralSort sorter)
 	{
 		System.out.println("--近似有序数据-------------");
 		Integer[] arr = this.createAlmostOrderly(scale, Inversion);
-//		sorter.bubbleSort(arr, 0, arr.length-1);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.selectSort(arr, 0, arr.length-1);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.insertSort(arr);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.qulikSort1Ways(arr, 0, arr.length-1);
-//		arr = this.createClassArray(scale, Inversion);
+		sorter.insertSort(arr);
+		arr = this.createAlmostOrderly(scale, Inversion);
+		sorter.qulikSort1Ways(arr, 0, arr.length-1);
+		arr = this.createAlmostOrderly(scale, Inversion);
 		sorter.qulikSort2Ways(arr, 0, arr.length-1);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.qulikSort3Ways(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.mergeSortByRecursion(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.mergeSortByRecurrence(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, Inversion);
-//		sorter.heapSort(arr);
+		arr = this.createAlmostOrderly(scale, Inversion);
+		sorter.qulikSort3Ways(arr, 0, arr.length-1);
+		arr = this.createAlmostOrderly(scale, Inversion);
+		sorter.mergeSortByRecursion(arr, 0, arr.length-1, new Integer[arr.length]);
+		arr = this.createAlmostOrderly(scale, Inversion);
+		sorter.mergeSortByRecurrence(arr, 0, arr.length-1, new Integer[arr.length]);
+		arr = this.createAlmostOrderly(scale, Inversion);
+		sorter.heapSort(arr);
 	}
 	
 	private void repeat_order(GeneralSort sorter)
 	{
 		System.out.println("--大量重复数据-------------");
-		Integer[] arr = this.createAlmostOrderly(scale, range);
-//		sorter.bubbleSort(arr);
-//		arr = this.createClassArray(scale, range);
-//		sorter.selectSort(arr);
-//		arr = this.createClassArray(scale, range);
+		Integer[] arr = this.createClassArray(scale, range);
 //		sorter.insertSort(arr);
 //		arr = this.createClassArray(scale, range);
 //		sorter.qulikSort1Ways(arr, 0, arr.length-1);
 //		arr = this.createClassArray(scale, range);
-		sorter.qulikSort2Ways(arr, 0, arr.length-1);
+//		sorter.qulikSort2Ways(arr, 0, arr.length-1);
 //		arr = this.createClassArray(scale, range);
-//		sorter.qulikSort3Ways(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, range);
-//		sorter.mergeSortByRecursion(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, range);
-//		sorter.mergeSortByRecurrence(arr, 0, arr.length-1, new Integer[arr.length]);
-//		arr = this.createClassArray(scale, range);
-//		sorter.heapSort(arr);
+		sorter.qulikSort3Ways(arr, 0, arr.length-1);
+		arr = this.createClassArray(scale, range);
+		sorter.mergeSortByRecursion(arr, 0, arr.length-1, new Integer[arr.length]);
+		arr = this.createClassArray(scale, range);
+		sorter.mergeSortByRecurrence(arr, 0, arr.length-1, new Integer[arr.length]);
+		arr = this.createClassArray(scale, range);
+		sorter.heapSort(arr);
 	}
 	
 	public  Integer[] createClassArray(int scale, int scope)

@@ -1,12 +1,12 @@
-package com.dataStructure.graph.base;
+package com.dataStructure.graph;
 
 import java.util.Random;
 
+import com.dataStructure.graph.base.IGraph;
 import com.dataStructure.graph.base.extend.GraphComponent;
 import com.dataStructure.graph.base.extend.GraphPath;
 import com.dataStructure.graph.base.extend.GraphShortPath;
 import com.dataStructure.graph.base.impl.DenseGraph;
-import com.dataStructure.graph.base.inter.IGraph;
 import com.dataStructure.graph.base.util.ReadGraph;
 
 public class TestGraph {

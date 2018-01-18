@@ -6,14 +6,14 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.dataStructure.graph.base.inter.IGraph;
+import com.dataStructure.graph.base.IGraph;
 
 public class GraphShortPath {
 
 	private IGraph G;			//Í¼
-	private boolean[] visited;	//¸Ã¶¥µãÊÇ·ñ±»·ÃÎÊ
-	private int[] from;			//¸Ã¶¥µã´ÓÄÄÀ´
-	private int[] interval ;	//¸Ã¶¥µã¾àÀëÔ´µÄ¾àÀë
+	private boolean[] visited;	//ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ç·ñ±»·ï¿½ï¿½ï¿½
+	private int[] from;			//ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int[] interval ;	//ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ä¾ï¿½ï¿½ï¿½
 	private int source;			//Ô´
 	
 	public GraphShortPath(IGraph G,int source)
@@ -30,7 +30,7 @@ public class GraphShortPath {
 			interval[i] = -1;
 		}
 		
-		bds(this.source);  //¹ã¶ÈÓÅÏÈ±éÀú
+		bds(this.source);  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±ï¿½ï¿½ï¿½
 	}
 	
 	private void bds(int vertex) 
@@ -40,11 +40,11 @@ public class GraphShortPath {
 		interval[vertex] = 0;
 		
 		LinkedBlockingQueue<Integer> queue = new LinkedBlockingQueue<Integer>();
-		queue.add(vertex);  //°ÑÔ´ ¶¥µã ¼ÓÈë¶ÓÁÐ
+		queue.add(vertex);  //ï¿½ï¿½Ô´ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		while(!queue.isEmpty())
 		{
-			int point = queue.poll();	//´Ó¶ÓÁÐÖÐÈ¡³ö¶¥µã£¬È»ºó°Ñ¸Ã¶¥µãµÄ ÁÚ½Ó¶¥µã ¼ÓÈë¶ÓÁÐ
-			visited[point] = true;//µ±³ö¶ÓÊ±£¬½«·ÃÎÊ×´Ì¬ÖÃÎªTRUE
+			int point = queue.poll();	//ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬È»ï¿½ï¿½Ñ¸Ã¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½Ó¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			visited[point] = true;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ÎªTRUE
 			List<Integer> adjVertexs = this.G.adjacentEdge(point);
 			if(adjVertexs == null || adjVertexs.size() < 1) return;
 			
@@ -52,7 +52,7 @@ public class GraphShortPath {
 			{
 				if(!visited[adjVertex])
 				{
-					//ÔÚÈë¶ÓÇ°£¬¸üÐÂ¸Ã¶¥µã ÊÇ´ÓÄÄÀ´µÄ£¬¾àÀëÔ´ µÄ¾àÀë
+					//ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Â¸Ã¶ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ ï¿½Ä¾ï¿½ï¿½ï¿½
 					interval[adjVertex] = interval[point] +1;
 					from[adjVertex] = point;
 					try {
@@ -100,7 +100,7 @@ public class GraphShortPath {
 	
 	public void showPath(int vertex)
 	{
-		System.out.println(this.source+"µ½"+vertex+"µÄ×î¶ÌÂ·¾¶£º"+shortPath(vertex));
+		System.out.println(this.source+"ï¿½ï¿½"+vertex+"ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½"+shortPath(vertex));
 		List<Integer> sourceToVertex = path(vertex);
 		if(sourceToVertex != null)
 		{

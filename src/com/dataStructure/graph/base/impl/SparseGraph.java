@@ -3,14 +3,14 @@ package com.dataStructure.graph.base.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dataStructure.graph.base.inter.IGraph;
+import com.dataStructure.graph.base.IGraph;
 
 //稀疏图，实现方式为 邻接表
 public class SparseGraph implements IGraph{
-	private int vertex;
-	private int edge;
-	private Node[] graph;
-	private boolean directed;
+	private int vertex;//顶点
+	private int edge;//边
+	private Node[] graph;//边
+	private boolean directed;//是否有向
 	
 	public SparseGraph(int vertex,boolean directed)
 	{
@@ -23,11 +23,11 @@ public class SparseGraph implements IGraph{
 			graph[i] = null;
 		}
 	}
-	
+	//添加一条边
 	public void addEdge(int vStart,int vEnd)
 	{
-		if(vStart < 0 || vStart > this.vertex) return;
-		if(vEnd < 0 || vEnd > this.vertex) return;
+		if(vStart < 0 || vStart >= this.vertex) return;
+		if(vEnd < 0 || vEnd >= this.vertex) return;
 		if(hasEdge(vStart,vEnd)) return;
 		
 		if(this.graph[vStart] == null)
@@ -48,14 +48,14 @@ public class SparseGraph implements IGraph{
 		}
 		this.edge++;
 	}
-	
+	//判断两个顶点之间是否有边
 	public boolean hasEdge(int vStart,int vEnd)
 	{
 		if(this.graph[vStart] == null) return false;
 		
 		return this.graph[vStart].contains(vEnd);
 	}
-	
+	//获取一个顶点的邻接点（即与该顶点有边相连的顶点）
 	public List<Integer> adjacentEdge(int vertex)
 	{
 		List<Integer> vertexs = new ArrayList<Integer>();
@@ -70,8 +70,7 @@ public class SparseGraph implements IGraph{
 		}
 		return vertexs;
 	}
-	
-	
+	//打印矩阵信息	
 	public void matrix()
 	{
 		for(int i=0; i<this.vertex; i++)
@@ -79,16 +78,7 @@ public class SparseGraph implements IGraph{
 			this.graph[i].display();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public int getVertex() {
 		return vertex;
 	}
@@ -105,18 +95,6 @@ public class SparseGraph implements IGraph{
 		this.edge = edge;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
 	public boolean isDirected() {
 		return directed;
 	}
@@ -124,18 +102,6 @@ public class SparseGraph implements IGraph{
 	public void setDirected(boolean directed) {
 		this.directed = directed;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	class Adjacent{
 		private SparseGraph G;
@@ -169,18 +135,8 @@ public class SparseGraph implements IGraph{
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	class Node{
-		private int data;
+		private int data; //顶点值
 		private Node next;
 		
 		public Node(int data)

@@ -26,7 +26,7 @@ public class SorterHandler implements InvocationHandler{
 		}
 		long t2 = System.currentTimeMillis();
 		System.out.println((t2-t1)/1000.00+"s");
-		return proxy;
+		return null;
 	}
 	
 	public <T extends Comparable<T>> boolean  checkOrderly(T[] data)

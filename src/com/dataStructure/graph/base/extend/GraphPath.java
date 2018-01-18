@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import com.dataStructure.graph.base.inter.IGraph;
+import com.dataStructure.graph.base.IGraph;
 
 //
 public class GraphPath {

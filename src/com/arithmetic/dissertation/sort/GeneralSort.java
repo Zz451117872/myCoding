@@ -48,7 +48,7 @@ public interface GeneralSort {
 	/*
 	 * 快速排序3路算法
 	 */
-	public <T extends Comparable<T>> void qulikSort3Ways(T[] arr, int start, int end ,T[] room);
+	public <T extends Comparable<T>> void qulikSort3Ways(T[] arr, int start, int end);
 
 	/*
 	 * 堆排序

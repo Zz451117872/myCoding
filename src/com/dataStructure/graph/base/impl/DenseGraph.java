@@ -3,14 +3,14 @@ package com.dataStructure.graph.base.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dataStructure.graph.base.inter.IGraph;
+import com.dataStructure.graph.base.IGraph;
 
 //稠密图：实现方式为 邻接矩阵
 public class DenseGraph implements IGraph{
-	private int vertex;
-	private int edge;
-	private boolean directed;
-	private boolean[][] graph;
+	private int vertex;//顶点
+	private int edge;//边
+	private boolean directed;//是否有向
+	private boolean[][] graph;//图
 	
 	public DenseGraph(int vertex,boolean directed)
 	{
@@ -27,10 +27,13 @@ public class DenseGraph implements IGraph{
 		}
 	}
 	
+	/*
+	 * 添加一条边
+	 */
 	public void  addEdge(int vStart,int vEnd)
 	{
-		if(vStart < 0 || vStart > this.vertex) return;
-		if(vEnd < 0 || vEnd > this.vertex) return;
+		if(vStart < 0 || vStart >= this.vertex) return;
+		if(vEnd < 0 || vEnd >= this.vertex) return;
 		if(hasEdge(vStart,vEnd)) return;
 		
 		this.graph[vStart][vEnd] = true;
@@ -40,7 +43,9 @@ public class DenseGraph implements IGraph{
 		}
 		this.edge ++;
 	}
-	
+	/*
+	 * 打印图信息
+	 */
 	public void matrix()
 	{
 		System.out.println("--------------------------");
@@ -59,12 +64,14 @@ public class DenseGraph implements IGraph{
 		}
 		System.out.println("--------------------------");
 	}
-	
+	//判断是否有边
 	public boolean hasEdge(int vStart,int vEnd)
 	{
 		return this.graph[vStart][vEnd];
 	}
-	
+	/*
+	 * 获取一个顶点的 邻接点（即与该顶点有边的顶点）
+	 */
 	public List<Integer> adjacentEdge(int vertex)
 	{		
 		List<Integer> vertexs = new ArrayList<Integer>();
@@ -79,8 +86,6 @@ public class DenseGraph implements IGraph{
 		}
 		return vertexs;
 	}
-	
-	
 	
 	public int getVertex() {
 		return vertex;
@@ -105,8 +110,6 @@ public class DenseGraph implements IGraph{
 	public void setDirected(boolean directed) {
 		this.directed = directed;
 	}
-
-
 
 	class AdjIterator{
 		private DenseGraph G;

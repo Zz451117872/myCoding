@@ -2,7 +2,7 @@ package com.dataStructure.graph.base.extend;
 
 import java.util.List;
 
-import com.dataStructure.graph.base.inter.IGraph;
+import com.dataStructure.graph.base.IGraph;
 
 //
 public class GraphComponent {
