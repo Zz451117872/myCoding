@@ -50,7 +50,7 @@ public class SingleSourceShortPath<T extends Comparable<T>> {
 		}
 	}
 	
-	public SingleSourceShortPath(IWeightGraph<T> G,int source)
+	public SingleSourceShortPath(IWeightGraph<T> G, int source)
 	{
 		this.G = G;
 		this.vertex = G.getVertex();
