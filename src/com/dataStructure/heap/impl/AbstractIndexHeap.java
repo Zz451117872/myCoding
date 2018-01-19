@@ -36,6 +36,22 @@ public abstract class AbstractIndexHeap<T extends Comparable<T>> implements Inde
 			}
 		}		
 	}
+	
+	public int popIndex()
+	{
+		if(isEmpty()) {
+			System.out.println("is empty!!!");
+			return -1;		
+		}
+		int index = indexs[0];
+		arr[indexs[0]] = null;
+		swap(indexs,0,count - 1);		
+		swap(reverse,indexs[0],indexs[count-1]);
+		reverse[count-1] = -1;
+		this.count --;
+		this.shiftDown(0);
+		return index;
+	}
 
 	public T pop()
 	{
@@ -115,6 +131,11 @@ public abstract class AbstractIndexHeap<T extends Comparable<T>> implements Inde
 	@Override	
 	public boolean contains(T data) {
 		return false;
+	}
+	
+		
+	public boolean contains(int index) {
+		return reverse[index] != -1;
 	}
 	
 	public void clear()
