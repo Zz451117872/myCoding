@@ -26,7 +26,7 @@ public class Edge<T extends Comparable<T>> implements Comparable<Edge<T>>{
 		if(!(obj instanceof Edge)) return false;
 		if(this == obj) return true;
 		
-		Edge edge = (Edge)obj;
+		Edge<T> edge = (Edge<T>)obj;
 		if((this.v == edge.v && this.w == edge.w) || (this.w == edge.v && this.v == edge.w))
 		{
 			return true;
@@ -70,7 +70,7 @@ public class Edge<T extends Comparable<T>> implements Comparable<Edge<T>>{
 
 
 	@Override
-	public int compareTo(Edge edge) {
+	public int compareTo(Edge<T> edge) {
 		return this.weight.compareTo((T) edge.weight);
 	}
 }

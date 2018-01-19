@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dataStructure.graph.entry.Edge;
-import com.dataStructure.graph.weightGraph.IGraph;
+import com.dataStructure.graph.weightGraph.IWeightGraph;
 import com.dataStructure.heap.impl.MinHeap;
 
 //prim算法：主要是利用 最小堆 不断弹出 最小权值边
 public class Prim<T extends Comparable<T>> {
 	
-	private IGraph<T> G;							//图
+	private IWeightGraph<T> G;							//图
 	private boolean[] marked;					//是否被标记了
 	private List<Edge<T>> minProductTree;	//最小生成 树
 	private MinHeap<Edge<T>> minHeap;		//最小堆 
 	private double minWeight ;			//最小生成树 总权值
 	private int vertex;
 	
-	public Prim(IGraph<T> G)
+	public Prim(IWeightGraph<T> G)
 	{
 		this.G = G;
 		minWeight = 0;

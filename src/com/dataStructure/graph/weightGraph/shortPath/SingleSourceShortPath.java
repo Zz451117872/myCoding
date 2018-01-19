@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dataStructure.graph.entry.Edge;
-import com.dataStructure.graph.weightGraph.IGraph;
+import com.dataStructure.graph.weightGraph.IWeightGraph;
 
 /*
  * 单源最短路径：
  * 完全可以不用索引堆 ，为什么视频中强调用索引堆？
  */
 public class SingleSourceShortPath<T extends Comparable<T>> {
-	private IGraph<T> G;
+	private IWeightGraph<T> G;
 	List<Edge<T>> edges; //横切边集合 ？为什么要有这个集合？因为只有是横切边才有需要mark而未mark的顶点
 	private int source;		// 从哪里开始寻路
 	private double[] minPathValue;//最短路径值
@@ -50,7 +50,7 @@ public class SingleSourceShortPath<T extends Comparable<T>> {
 		}
 	}
 	
-	public SingleSourceShortPath(IGraph<T> G,int source)
+	public SingleSourceShortPath(IWeightGraph<T> G,int source)
 	{
 		this.G = G;
 		this.vertex = G.getVertex();

@@ -2,19 +2,19 @@ package com.dataStructure.graph.baseGraph.extend;
 
 import java.util.List;
 
-import com.dataStructure.graph.baseGraph.IGraph;
+import com.dataStructure.graph.baseGraph.IBaseGraph;
 
 /*
  * 图的连接分量
  */
 public class GraphComponent {
 
-	private IGraph G;			//图
+	private IBaseGraph G;			//图
 	private boolean[] visited;	//该顶点是否被访问
 	private int[] id;			//该顶点对应的连通分量值
 	private int component;		//连通分量
 	
-	public GraphComponent(IGraph G)
+	public GraphComponent(IBaseGraph G)
 	{
 		this.G = G;
 		visited = new boolean[G.getVertex()];

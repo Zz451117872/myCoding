@@ -3,22 +3,24 @@ package com.dataStructure.graph.weightGraph.minProductTree;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.arithmetic.dissertation.sort.GeneralSort;
+import com.arithmetic.dissertation.sort.impl.GeneralSortImpl;
 import com.dataStructure.graph.entry.Edge;
-import com.dataStructure.graph.util.MergeSortEdge;
-import com.dataStructure.graph.weightGraph.IGraph;
+import com.dataStructure.graph.weightGraph.IWeightGraph;
 import com.dataStructure.union.UnionFindSetUpgrade2;
 
 //kruskal算法：主要是利用并查集 判断 当加入某条边后是否会产生 环
 public class Kruskal<T extends Comparable<T>> {
 
-	private IGraph<T> G;			//连通图
+	private IWeightGraph<T> G;			//连通图
 	private boolean[] marked;	//是否已标记
 	private List<Edge<T>> minProductTree;
 	UnionFindSetUpgrade2 union;	//并查集
 	private double minWeight;
 	private int vertex;
 	
-	public Kruskal(IGraph<T> G)
+	@SuppressWarnings("unchecked")
+	public Kruskal(IWeightGraph<T> G)
 	{
 		this.G = G;											//连通图
 		this.vertex = G.getVertex();						//顶点数
@@ -33,7 +35,8 @@ public class Kruskal<T extends Comparable<T>> {
 		//对所有的 带权边 进行排序
 		Edge<T>[] edges = new Edge[this.G.getEdge()];
 		this.G.getEdges().toArray(edges);
-		MergeSortEdge.sort(edges, 0, edges.length-1, new Edge[edges.length]);
+		GeneralSort sorter = new GeneralSortImpl();
+		sorter.mergeSortByRecursion(edges, 0, edges.length-1, new Edge[edges.length]);
 		//从权值最小 边开始遍历
 		for(int i=0; i<edges.length; i++)
 		{

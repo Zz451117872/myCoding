@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dataStructure.graph.entry.Edge;
-import com.dataStructure.graph.weightGraph.IGraph;
+import com.dataStructure.graph.weightGraph.IWeightGraph;
 import com.dataStructure.heap.impl.IndexMinHeap;
 
 //prim算法升级版：主要是利用 索引堆 可以对指定 下标的数据进行修改
 public class PrimUpgrade<T extends Comparable<T>> {
 	
-	private IGraph<T> G;			//连通图
+	private IWeightGraph<T> G;			//连通图
 	private boolean[] marked;	//是否已标记
 	private double minWeight;	//最小总权值
 	IndexMinHeap<Edge<T>> indexMinHeap;	//最小索引堆 
 	private List<Edge<T>> minProductTree;	//最小生成树
 	private int vertex;
 	
-	public PrimUpgrade(IGraph<T> G)
+	public PrimUpgrade(IWeightGraph<T> G)
 	{
 		this.G = G;
 		this.vertex = G.getVertex();

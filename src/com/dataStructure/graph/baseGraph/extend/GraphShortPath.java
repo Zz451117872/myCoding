@@ -6,20 +6,20 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.dataStructure.graph.baseGraph.IGraph;
+import com.dataStructure.graph.baseGraph.IBaseGraph;
 
 /*
  * 单源最智路径
  */
 public class GraphShortPath {
 
-	private IGraph G;			//图
+	private IBaseGraph G;			//图
 	private boolean[] visited;	//该顶点是否被访问
-	private int[] from;			//
+	private int[] from;			//顶点的踪迹
 	private int[] interval ;	//源距离该顶点的最短距离
 	private int source;			//源
 	
-	public GraphShortPath(IGraph G,int source)
+	public GraphShortPath(IBaseGraph G,int source)
 	{
 		this.G = G;
 		this.source = source;
