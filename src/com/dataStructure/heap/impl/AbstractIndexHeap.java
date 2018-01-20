@@ -3,7 +3,7 @@ package com.dataStructure.heap.impl;
 import com.dataStructure.heap.IndexHeap;
 
 /*
- * 索引堆的基本实现
+ * 索引堆 的操作对象是索引
  * 索引堆的用途，不仅是因为数据过大不方便移动，更重要的是数据的相对位置没有变动，
  * 可以随时更新指定下标的数据。
  */

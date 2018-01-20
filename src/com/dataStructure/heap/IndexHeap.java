@@ -10,4 +10,6 @@ public interface IndexHeap<T extends Comparable<T>> extends Heap<T>{
 	public void update(T data,int index);//更新 数据区 指定下标处数据
 	public void clear();
 	public int popIndex();
+	public T pop();
+	
 }
