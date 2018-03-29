@@ -5,6 +5,7 @@ import com.dataStructure.heap.impl.MaxHeap;
 
 public class GeneralSortImpl implements GeneralSort{
 
+	
 	/*
 	 * 选择排序,性能低，不稳定
 	 */

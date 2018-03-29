@@ -3,6 +3,7 @@ package com.arithmetic.dissertation.sort.impl;
 import java.util.Random;
 
 public class TableSort {
+	
 	/*
 	 * 表排序：间接排序，不直接移动排序对象，通过对象的key值完成排序
 	 */

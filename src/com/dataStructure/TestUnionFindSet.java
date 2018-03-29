@@ -1,5 +1,6 @@
 package com.dataStructure;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.dataStructure.union.UnionFindSet;
@@ -14,6 +15,7 @@ public class TestUnionFindSet {
 	static Random r = new Random();
 	public static void main(String[] str)
 	{	
+		
 		int capatify = 100000;
 		int count = 100000;
 		UnionFindSetBase ufs = new UnionFindSetBase(capatify);

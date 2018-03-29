@@ -18,8 +18,8 @@ public abstract class AbstractIndexHeap<T extends Comparable<T>> implements Inde
 	{
 		this.arr = (T[]) new Comparable[size];// 数据
 		this.count = 0;
-		indexs = new int[size];		//堆索引 作用：堆索引 代表着哪个数据
-		reverse = new int[size];		//数据索引 作用：数据 在堆中的哪个位置
+		indexs = new int[size];		//堆索引 作用：堆索引 代表着哪个数据,维护堆的特性
+		reverse = new int[size];	//数据索引 作用：数据 在堆中的哪个位置
 	}
 	
 	public AbstractIndexHeap(T[] arr)
@@ -37,15 +37,16 @@ public abstract class AbstractIndexHeap<T extends Comparable<T>> implements Inde
 		}		
 	}
 	
+	//弹出堆索引
 	public int popIndex()
 	{
 		if(isEmpty()) {
 			System.out.println("is empty!!!");
 			return -1;		
 		}
-		int index = indexs[0];
-		arr[indexs[0]] = null;
-		swap(indexs,0,count - 1);		
+		int index = indexs[0]; //堆顶索引
+		arr[index] = null; //将堆索引 对应数据删除
+		swap(indexs,0,count - 1);	//删除堆顶索引	
 		swap(reverse,indexs[0],indexs[count-1]);
 		reverse[count-1] = -1;
 		this.count --;
@@ -53,20 +54,15 @@ public abstract class AbstractIndexHeap<T extends Comparable<T>> implements Inde
 		return index;
 	}
 
+	//弹出数据
 	public T pop()
 	{
-		if(isEmpty()) {
-			System.out.println("is empty!!!");
-			return null;		
+		int index = popIndex();
+		if( index != -1 )
+		{
+			return this.arr[index];
 		}
-		T temp = (T) arr[indexs[0]];
-		arr[indexs[0]] = null;
-		swap(indexs,0,count - 1);		
-		swap(reverse,indexs[0],indexs[count-1]);
-		reverse[count-1] = -1;
-		this.count --;
-		this.shiftDown(0);
-		return temp;
+		return null;
 	}
 	/*
 	 * 入堆操作：index 表示数据插入arr的位置
@@ -102,7 +98,7 @@ public abstract class AbstractIndexHeap<T extends Comparable<T>> implements Inde
 			push(data,index);
 		}else{
 			this.arr[index] = data;	//更新数据			
-			shiftDown(reverse[index]);
+			shiftDown(reverse[index]);//向下
 			shiftUp(reverse[index]);
 		}
 	}

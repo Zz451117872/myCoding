@@ -9,6 +9,7 @@ public class IndexMinHeap<T extends Comparable<T>> extends AbstractIndexHeap<T>{
 		super(arr);
 	}
 
+	//向下维护堆特性
 	public void shiftDown(int parent)
 	{
 		int left = Left(parent);
@@ -36,6 +37,7 @@ public class IndexMinHeap<T extends Comparable<T>> extends AbstractIndexHeap<T>{
 		}
 	}
 	
+	//向上维护堆特性
 	public void shiftUp(int child)
 	{
 		int parent = Parent(child);

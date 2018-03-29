@@ -19,18 +19,8 @@ import java.util.Vector;
 
 public class Solution {
 	public static void main(String[] srt)
-	{		
-		String beginWord = "hit";
-		String	endWord = "cog";
-		List<String> words = new ArrayList<String>();
-		words.add("hot");
-		words.add("dot");
-		words.add("dog");
-		words.add("lot");
-		words.add("log");
-		words.add("cog");
-		
-		System.out.println( ladderLength( beginWord, endWord, words ) );
+	{				
+		System.out.println( 12 == 12.0 );
 	}
 	 public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
 		 
