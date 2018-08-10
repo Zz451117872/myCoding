@@ -9,11 +9,19 @@ import java.util.concurrent.LinkedBlockingQueue;
 import com.dataStructure.graph.baseGraph.IBaseGraph;
 
 /*
+<<<<<<< HEAD
  * 单源最短路径
  */
 public class GraphShortPath {
 
 	private IBaseGraph G;		//图
+=======
+ * 单源最智路径
+ */
+public class GraphShortPath {
+
+	private IBaseGraph G;			//图
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private boolean[] visited;	//该顶点是否被访问
 	private int[] from;			//顶点的踪迹
 	private int[] interval ;	//源距离该顶点的最短距离
@@ -35,7 +43,10 @@ public class GraphShortPath {
 		
 		bds(this.source); 
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	//广度优先
 	private void bds(int vertex) 
 	{
@@ -70,13 +81,19 @@ public class GraphShortPath {
 		
 	}
 
+<<<<<<< HEAD
 	//判断目标点 与 源点 是否有路径
+=======
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public boolean hasPath(int vertex)
 	{
 		return interval[vertex] != -1;
 	}
 	
+<<<<<<< HEAD
 	//返回源点 到 目标点 经过的点
+=======
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public List<Integer> path(int vertex)
 	{
 		if(!hasPath(vertex)) return null;
@@ -98,7 +115,10 @@ public class GraphShortPath {
 		return sourceToVertex;
 	}
 	
+<<<<<<< HEAD
 	//返回 源点 到 目标点 的最短路径值
+=======
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public int shortPath(int vertex)
 	{
 		if(!hasPath(vertex)) return -1;

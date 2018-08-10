@@ -9,7 +9,11 @@ import com.dataStructure.graph.baseGraph.IBaseGraph;
 //
 public class GraphPath {
 
+<<<<<<< HEAD
 	private IBaseGraph G;		//图
+=======
+	private IBaseGraph G;			//图
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private boolean[] visited;	//该顶点是否被访问
 	private int[] from;			//顶点的上一个顶点
 	private int[] id;			//保存顶点的踪迹

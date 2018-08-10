@@ -13,12 +13,19 @@ import com.arithmetic.thought.DP2;
 
 public class Strings {
 		
+<<<<<<< HEAD
 	
 	/**
 	 * 给定一个字符串，获取该字符串中最长的回文串
 	 * @param target
 	 * @return
 	 */
+=======
+	/*
+	 * 给定字符串，求该字符串中最长的回文串，暴力方式
+	 */
+	//给定一个字符串，获取该字符串中最长的回文串
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static String longestPalindromic(String target)
 	{
 		if(target == null || "".equals(target)) return "";
@@ -36,11 +43,18 @@ public class Strings {
 		return palindromic;
 	}
 	
+<<<<<<< HEAD
 	
 	/**
 	 * 给定字符串，求该字符串中最长的回文串，动态规划
 	 * @param target
 	 * @return
+=======
+	//居然没有用到递归，这里用到了动态规划的思想
+	
+	/*
+	 * 给定字符串，求该字符串中最长的回文串，动态规划
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static String longestPalindromicByRecursion(String target)
 	{
@@ -60,12 +74,19 @@ public class Strings {
 		}
 		return longest;
 	}
+<<<<<<< HEAD
 	
 	
 	/**
 	 * 给定一个字符串，如何判断该字符串中没有重复字符
 	 * @param target
 	 * @return
+=======
+	//判断字符串中的字符是否均唯一出现
+	
+	/*
+	 * 给定一个字符串，如何判断该字符串中没有重复字符
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static boolean isUnique(String target)
 	{
@@ -77,11 +98,18 @@ public class Strings {
 		return target.length() == set.size();
 	}
 	
+<<<<<<< HEAD
 	
 	/**
 	 * 给定字符串，让字符串中字符按顺序排列
 	 * @param target
 	 * @return
+=======
+	//字符串排序
+	
+	/*
+	 * 给定字符串，让字符串中字符按顺序排列
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static String stringSort(String target)
 	{
@@ -101,12 +129,16 @@ public class Strings {
 		return new String(arr);
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 重构字符比较方法
 	 * @param c
 	 * @param d
 	 * @return
 	 */
+=======
+	//重构字符串比较
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private static int compare(char c, char d) 
 	{
 		if(Character.isUpperCase(c) == Character.isUpperCase(d))
@@ -120,12 +152,17 @@ public class Strings {
 		return 0;
 	}
 		
+<<<<<<< HEAD
 	
 	/**
 	 * 给定2个字符串，求最大公共子序列
 	 * @param one
 	 * @param another
 	 * @return
+=======
+	/*
+	 * 给定2个字符串，求最大公共子序列
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static String getMaxPublicSubSequence(String one, String another)
 	{
@@ -146,11 +183,16 @@ public class Strings {
 	}
 	
 	
+<<<<<<< HEAD
 	/**
 	 * 给定2个字符串，求最大公共子串
 	 * @param one
 	 * @param another
 	 * @return
+=======
+	/*
+	 * 给定2个字符串，求最大公共子串	
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static String getMaxPublicSubString(String one, String another)
 	{
@@ -170,11 +212,18 @@ public class Strings {
 		return maxPublicSubString;
 	}
 	
+<<<<<<< HEAD
 
 	/**
 	 * 获取给定字符串的所有子串（子串 和 子序列不一样，子串是连续的字符）
 	 * @param source
 	 * @return
+=======
+	//得到字符串的所有子串，传入是否连续参数
+	
+	/*
+	 * 获取给定字符串的所有子串（子串 和 子序列不一样，子串是连续的字符）
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static List<String> getAllSubStringByRecursion(String source)
 	{
@@ -201,12 +250,18 @@ public class Strings {
 		return result;
 	}
 	
+<<<<<<< HEAD
 	
 	/**
 	 * 获取给定字符串的 所有子序列 或者子串，子串必需是连续的
 	 * @param source
 	 * @param Continuous ：如果为true，表示是获取子串。
 	 * @return
+=======
+	/*
+	 * 获取给定字符串的 所有子序列 或者子串，子串必需是连续的
+	 * Continuous：如果为true，表示是获取子串。
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static List<String> getAllSubString(String source,boolean Continuous)
 	{
@@ -247,12 +302,19 @@ public class Strings {
 		return result;
 	}
 	
+<<<<<<< HEAD
 
 	/**
 	 * 获取给定2个字符串的公共前缀
 	 * @param str1
 	 * @param str2
 	 * @return
+=======
+	//求公共前缀
+
+	/*
+	 * 获取给定2个字符串的公共前缀
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static String getCommonPrefix(String str1,String str2)
 	{
@@ -270,12 +332,21 @@ public class Strings {
 	}
 	
 	
+<<<<<<< HEAD
 	/**
 	 * 移动字符串
 	 * @param str
 	 * @param offset ：前offset个字符移到到末尾
 	 * @return
 	 */
+=======
+	//判断 s3 是不是 由s1 s2交错构成
+		
+	//旋转字符串
+/*
+ 	* 	给定字符串，将前offset个字符移到到末尾 
+ 	*/
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static String shiftString(String str , int offset)
 	{
 		if(offset < 0) return null;
@@ -285,11 +356,16 @@ public class Strings {
 	}
 	
 	
+<<<<<<< HEAD
 	/**
 	 * 给定字符串，旋转前offset个字符
 	 * @param str
 	 * @param offset
 	 * @return
+=======
+	/*
+	 * 给定字符串，旋转前offset个字符
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static String rotateString (String str,int offset)
 	{

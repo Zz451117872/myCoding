@@ -18,6 +18,7 @@ public class Trees {
 	
 //		String path = System.getProperty("user.dir")+"/src/com/dataStructure/question/tree/tree.txt";
 	
+<<<<<<< HEAD
 	/**
 	 * 在二叉搜索树中 搜索一个区间的的值 的集合
 	 * @param tree
@@ -25,6 +26,9 @@ public class Trees {
 	 * @param end
 	 * @return
 	 */
+=======
+	//区间搜索
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static List<Integer> range(BinarySerachTree<Integer> tree,int start,int end)
 	{
 		if(tree.root == null) return null;
@@ -33,6 +37,7 @@ public class Trees {
 		return ranges;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 中序区间搜索
 	 * @param root
@@ -40,6 +45,9 @@ public class Trees {
 	 * @param end
 	 * @param ranges
 	 */
+=======
+	//中序区间搜索
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private static void inorder(BinarySerachTreeNode<Integer> root, int start, int end, List<Integer> ranges) 
 	{
 		if(root == null) return;
@@ -56,12 +64,16 @@ public class Trees {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * 中序小于搜索
 	 * @param root
 	 * @param end
 	 * @param ranges
 	 */
+=======
+	//中序小于搜索
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private static void inorderLt(BinarySerachTreeNode<Integer> root, int end, List<Integer> ranges) 
 	{
 		if(root == null ) return;
@@ -75,12 +87,16 @@ public class Trees {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * 中序大于搜索
 	 * @param root
 	 * @param start
 	 * @param ranges
 	 */
+=======
+	//中序大于搜索
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private static void inorderGt(BinarySerachTreeNode<Integer> root, int start, List<Integer> ranges) 
 	{
 		if(root == null) return;
@@ -94,11 +110,15 @@ public class Trees {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * 中序遍历存值
 	 * @param root
 	 * @param ranges
 	 */
+=======
+	//中序遍历存值
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private static void inorderInsert(BinarySerachTreeNode<Integer> root, List<Integer> ranges) 
 	{
 		if(root == null) return;
@@ -113,11 +133,15 @@ public class Trees {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * 树序列化
 	 * @param tree
 	 * @param path
 	 */
+=======
+	//树序列化
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public  static  void serialize(BinarySerachTree<Integer> tree, String path)
 	{
 		File file = new File(path);
@@ -140,11 +164,15 @@ public class Trees {
 		}
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 树反序列化
 	 * @param path
 	 * @return
 	 */
+=======
+	//树反序列化
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static BinarySerachTree<Integer> deserialize(String path)
 	{
 		File file = new File(path);
@@ -169,6 +197,7 @@ public class Trees {
 		return null;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 已知先序遍历 和 中序遍历，求后序遍历结果
 	 * 先序遍历 主要作用是 得到根节点的值
@@ -178,6 +207,13 @@ public class Trees {
 	 * @param postorder ：后序遍历结果
 	 * @param start ：本轮循环中后序遍历结果对应的开始点
 	 * @param end ：本轮循环中后序遍历结果对应的结束点
+=======
+	
+	/*
+	 * 已知先序遍历 和 中序遍历，求后序遍历结果
+	 * 先序遍历 主要作用是 得到根节点的值
+	 * 中序遍历 主要作用是 定位根节点，分割左右子树
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	 */
 	public static void handler(int[] preorder,int[] inorder,int[] postorder,int start,int end)
 	{
@@ -198,6 +234,7 @@ public class Trees {
 			}		
 	}
 	
+<<<<<<< HEAD
 	//先序
 	public static int[] preorder = {21,12,10,9,4,24,44,33,25,29,53,76};
 	//中序
@@ -213,6 +250,10 @@ public class Trees {
 	 * @param posty
 	 * @param postorder
 	 */
+=======
+	public static int[] preorder = {21,12,10,9,4,24,44,33,25,29,53,76};
+	public static int[] inorder = {4,9,10,12,21,24,25,29,33,44,53,76};
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static void handler(int prex,int prey,int inx,int iny,int postx,int posty,int[] postorder)
 	{		
 		try{

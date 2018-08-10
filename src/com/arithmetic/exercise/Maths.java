@@ -21,12 +21,16 @@ import java.util.Set;
  */
 public class Maths {	
 
+<<<<<<< HEAD
 	/**
 	 * 寻找{1,2,3,5}的第n 个丑数，丑数即公因子 只能是给定集合中的数
 	 * 从1开始循环，获取目标的质因子集合，判断丑数集合是否完全包含质因子集合
 	 * @param n ：第几个丑数
 	 * @return
 	 */
+=======
+	//寻找{1,2,3,5}的第n 个丑数，丑数即公因子 只能是给定集合中的数
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static int uglyDigit(int n)
 	{
 		int number = 1;
@@ -45,12 +49,16 @@ public class Maths {
 		}
 		return number-1;
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * 获得一个数的 质因子，
 	 * @param n
 	 * @return
 	 */
+=======
+	//获得一个数的 质因子
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static Set<Integer> getProtons(int n)
 	{
 		if(n <= 0) return null;
@@ -85,11 +93,15 @@ public class Maths {
 		return divisor;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 判断一个数是否是质子，只能被1和自己整除的数
 	 * @param n
 	 * @return
 	 */
+=======
+	//判断一个数是否是质子
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static boolean isProton(int n)
 	{
 		if(n <= 0 )return false;
@@ -104,12 +116,16 @@ public class Maths {
 		return true;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 从0 到 digit，统计 n 出现的次数
 	 * @param digit ：范围
 	 * @param n ：目标
 	 * @return
 	 */
+=======
+	//从0 到 digit，统计 n 出现的次数
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static int digitCount(int digit , int n)
 	{
 		if(n < 0 || digit < 0) return 0;
@@ -127,6 +143,7 @@ public class Maths {
 	}
 				
 	
+<<<<<<< HEAD
 	/**
 	 * 主元素 1/2:是指重复出现次数最多的数字 大于指定概率
 	 * 若d在n个数中占比达到K分之一，一次性去除k个互不相同的数不影响d的占比
@@ -134,6 +151,14 @@ public class Maths {
 	 * @return
 	 */
 	public static int majorityNumberHalf1(int[] arr)
+=======
+	/*
+	 * 主元素问题：若d在n个数中占比达到K分之一，一次性去除k个互不相同的数不影响d的占比
+	 */
+
+	//主元素 1/2:是指重复出现次数最多的数字
+	public static int majorityNumberHalf(int[] arr)
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	{
 		if(arr == null || arr.length == 0) return 0;
 		if(arr.length == 1) return arr[0];
@@ -172,6 +197,7 @@ public class Maths {
 		}
 	}
 			
+<<<<<<< HEAD
 	public static int majorityNumberHalf2(int[] arr)
 	{
 		if(arr == null || arr.length == 0) return 0;
@@ -188,6 +214,8 @@ public class Maths {
 		arr[back] = temp;
 	}
 
+=======
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	//主元素，达到总数的k分之一以上
 	public static int majorityNumberK(int[] arr ,int k)
 	{
@@ -251,6 +279,7 @@ public class Maths {
 		}
 	}
 	
+<<<<<<< HEAD
 		
 	/**
 	 * 孤单的数，2n+1
@@ -262,12 +291,23 @@ public class Maths {
 	{
 		int result = arr[0];
 		for(int i=1; i<arr.length; i++)
+=======
+	/*
+	 * 孤单的数 问题
+	 */
+	//孤单的数，2n+1
+	public static int getAloneNumber1(int[] arr)
+	{
+		int result = 0;
+		for(int i=0; i<arr.length; i++)
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 		{
 			result = result^arr[i];		//位运算
 		}
 		return result;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 孤单的数，3n+1
 	 * 重写了异或方法,普通的异或可以理解为 （1+1）% 2 = 0 ， （1+0）% 2 = 1，则新异或方法可以写成 （ 1+1+1）%3 = 0
@@ -278,18 +318,29 @@ public class Maths {
 	{
 		String result = getBinaryString( arr[0]);
 		for(int i=1; i<arr.length; i++)
+=======
+	//孤单的数，3n+1
+	public static int getAloneNumber2(int[] arr)
+	{
+		String result = getBinaryString(0);
+		for(int i=0; i<arr.length; i++)
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 		{			
 			result = xor(result,getBinaryString(arr[i]));
 		}
 		return Integer.valueOf(result, 2);
 	}
 	
+<<<<<<< HEAD
 	/**
 	 * 二进制加法
 	 * @param x
 	 * @param y
 	 * @return
 	 */
+=======
+	//二进制加法
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	public static int add(int x, int y) {
 	    if (y == 0) return x;
 	    int sum, carry;
@@ -298,12 +349,16 @@ public class Maths {
 	    return add(sum, carry);
 	  }
 
+<<<<<<< HEAD
 	/**
 	 * 模拟异或操作
 	 * @param binaryD1
 	 * @param binaryD2
 	 * @return
 	 */
+=======
+	//模拟异或操作
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private static String xor(String binaryD1, String binaryD2) 
 	{
 		String resultBinaryString = "";
@@ -316,6 +371,7 @@ public class Maths {
 		return resultBinaryString;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * 得到 32 位 二进制
 	 * @param d1
@@ -327,6 +383,15 @@ public class Maths {
 			return "00000000000000000000000000000000";
 		String binaryString = Integer.toBinaryString(d1);
 		int len = 32 - binaryString.length();
+=======
+	//得到 24 位 二进制
+	private static String getBinaryString(int d1) 
+	{
+		if(d1 == 0)
+			return "000000000000000000000000";
+		String binaryString = Integer.toBinaryString(d1);
+		int len = 24 - binaryString.length();
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 		String prefix = "";
 		if(d1 >  0)
 		{			

@@ -17,7 +17,11 @@ public class TestMaths {
 	{
 		System.out.println("--majorityNumberHalf------------------");
 		int[] arr = new int[]{1,2,2,1,5,3,1,2,1,1,1};
+<<<<<<< HEAD
 		int majorityNumber = Maths.majorityNumberHalf1(arr);
+=======
+		int majorityNumber = Maths.majorityNumberHalf(arr);
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 		System.out.println(Arrays.toString(arr));
 		System.out.println("majorityNumber:"+majorityNumber);
 		System.out.println("");

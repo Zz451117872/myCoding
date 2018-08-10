@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.arithmetic.thought;
 
 import java.math.BigDecimal;
@@ -38,3 +39,36 @@ public class Iteration {
 		return null;
 	}
 }
+=======
+package com.arithmetic.thought;
+
+import java.math.BigDecimal;
+
+/*
+ * 迭代算法思想
+ */
+public class Iteration {
+
+	//n的阶乖 结果的尾部的0的个数
+	public static int tailZero(int n)
+	{
+		int count =0;
+		BigDecimal result = factorial(n);
+		while(result.remainder(new BigDecimal(10)).equals(new BigDecimal(0)))
+		{
+			result = result.divide(new BigDecimal(10));
+			System.out.println(result.toString());
+			count ++;
+		}
+		return count;
+	}
+	
+	public static BigDecimal factorial(int n)
+	{		
+		if(n == 1) return new BigDecimal(1);
+		
+		if(n > 1) return (new BigDecimal(n)).multiply(factorial(n-1));
+		return null;
+	}
+}
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf

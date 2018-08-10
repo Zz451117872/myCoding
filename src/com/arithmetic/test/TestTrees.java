@@ -27,7 +27,10 @@ public class TestTrees {
 			tree.insert(random.nextInt(200));
 		}
 		tree.inorder(tree.root);
+<<<<<<< HEAD
 		System.out.println("");
+=======
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	}
 	
 	@Test

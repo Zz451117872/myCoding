@@ -65,8 +65,12 @@ public class Prim<T extends Comparable<T>> {
 	{
 		return this.minWeight;
 	}
+<<<<<<< HEAD
 	
 	//对一个 顶点 加标记
+=======
+	//对一个 顶点 加票房
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private void mark(int vertex) 
 	{
 		if(vertex < 0 || vertex >= this.vertex) return;
@@ -87,8 +91,12 @@ public class Prim<T extends Comparable<T>> {
 			}
 		}				
 	}
+<<<<<<< HEAD
 	
 	// 判断 是否是横切边，如果两个点都已被标记，则不为横切边
+=======
+	// 判断 是否是横切边
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private boolean isTransectionEdge(Edge<T> edge) 
 	{
 		if(marked[edge.getV()] != marked[edge.getW()])

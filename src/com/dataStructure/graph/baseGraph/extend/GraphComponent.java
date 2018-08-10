@@ -34,7 +34,11 @@ public class GraphComponent {
 			}			
 		}
 	}
+<<<<<<< HEAD
 	//深度优先遍历，在同一个连通图内，则连通分量值一至
+=======
+	//深度优先遍历
+>>>>>>> 02bffa1629e700b327f64c46ccb3692216d2d4bf
 	private void dps(int vertex)
 	{
 		if(visited[vertex]) return;
